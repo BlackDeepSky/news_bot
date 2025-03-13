@@ -1,0 +1,8 @@
+aiogram==2.25.1
+requests
+googletrans==4.0.0-rc1
+loguru
+beautifulsoup4
+sumy
+numpy
+newspaper3k
