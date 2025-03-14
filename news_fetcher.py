@@ -5,10 +5,9 @@ CATEGORIES = {
     'наука': 'science',
     'техника': 'technology',
     'мировые новости': 'general',
-    'криптовалюта': 'business',
-    'тренды': 'entertainment',
-    'технологии': 'technology',
-    'игры': 'entertainment'
+    'игры': 'game',
+    'роботы': 'robots',
+    'искуственный интеллект': 'artificial intelligence'
 }
 
 def get_news(category):

@@ -49,10 +49,10 @@ async def fetch_and_send_news():
                 if get_news_by_url(url):
                     continue
                 title = translate_text(article['title'])
-                author = translate_text(article['author'] or 'Не указан')
+                author = article['author'] or 'Не указан'
                 
                 article_text = get_article_text(url)
-                summary = summarize_text(article_text, language='russian', sentences_count=3)
+                summary = summarize_text(article_text, language='russian', sentences_count=2)
                 summary_ru = translate_text(summary)  # Переводим суммаризацию на русский
                 summary_ru = sanitize_markdown(summary_ru)
                 
