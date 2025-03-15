@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 from config import NEWSAPI_KEY
 
 CATEGORIES = {
@@ -10,10 +10,13 @@ CATEGORIES = {
     'искуственный интеллект': 'artificial intelligence'
 }
 
-def get_news(category):
-    """Получение новостей по категории"""
+async def get_news(session, category):
+    """Асинхронное получение новостей"""
     url = f'https://newsapi.org/v2/top-headlines?category={CATEGORIES[category]}&apiKey={NEWSAPI_KEY}'
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()['articles']
-    return []
+    try:
+        async with session.get(url) as response:
+            data = await response.json()
+            return data.get('articles', [])
+    except Exception as e:
+        logger.error(f"Ошибка запроса новостей: {e}")
+        return []

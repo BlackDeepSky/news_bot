@@ -1,15 +1,15 @@
 import asyncio
 import sys
 import sqlite3
-from aiogram import Bot, Dispatcher, types
-from aiogram import executor  # Corrected import
+import aiohttp
+from aiogram import Bot, Dispatcher, types, executor
 from loguru import logger
+
 from config import BOT_TOKEN, ADMIN_ID, CHANNEL_ID
-from news_fetcher import CATEGORIES
+from news_fetcher import CATEGORIES, get_news
 from database import init_db, add_news, get_news_by_url
-from news_fetcher import get_news
-from translator import translate_text
-from summarizer import get_article_text, summarize_text
+from translator import load_translation_model, translate_text
+from summarizer import load_models, get_article_text, summarize_text
 
 # Настройка логирования
 logger.remove()
@@ -17,6 +17,10 @@ logger.add(sys.stderr, format="{time} {level} {message}", colorize=True)
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
+
+# Загрузка моделей при старте
+load_models()
+load_translation_model()
 
 def sanitize_markdown(text):
     """Очистка текста от проблемных Markdown-символов"""
@@ -39,54 +43,56 @@ def truncate_message(title, author, summary, max_length=1024):
     return base + truncated_summary
 
 async def fetch_and_send_news():
-    """Получение и отправка новостей каждые час"""
-    while True:
-        logger.info("Запрашиваем новости...")
-        for category in CATEGORIES.keys():
-            articles = get_news(category)
-            for article in articles:
-                url = article['url']
-                if get_news_by_url(url):
-                    continue
-                title = translate_text(article['title'])
-                author = article['author'] or 'Не указан'
+    """Асинхронная обработка новостей"""
+    async with aiohttp.ClientSession() as session:
+        while True:
+            for category in CATEGORIES:
+                try:
+                    articles = await get_news(session, category)
+                    for article in articles:
+                        # Пропуск существующих новостей
+                        if get_news_by_url(article['url']):
+                            continue
+                            
+                        # Обработка
+                        title = translate_text(article['title'])
+                        author = article.get('author', 'Не указан')
+                        url = article['url']
+                        image_url = article.get('urlToImage', '')
+                        published_at = article.get('publishedAt', '')
+                        
+                        article_text = await get_article_text(url)
+                        summary = summarize_text(article_text)
+                        summary_ru = translate_text(summary)
                 
-                article_text = get_article_text(url)
-                summary = summarize_text(article_text, language='russian', sentences_count=2)
-                summary_ru = translate_text(summary)  # Переводим суммаризацию на русский
-                summary_ru = sanitize_markdown(summary_ru)
-                
-                image_url = article['urlToImage']
-                published_at = article['publishedAt']
-                
-                if add_news(category, title, author, summary_ru, url, image_url, published_at):  # Сохраняем переведенную версию
-                    news = get_news_by_url(url)
-                    news_id = news[0]
-                    
-                    message = truncate_message(title, author, summary_ru, max_length=1024 if image_url else 4096)
-                    keyboard = types.InlineKeyboardMarkup()
-                    keyboard.add(types.InlineKeyboardButton("Отправить", callback_data=f"send_{news_id}"))
-                    
-                    try:
-                        if image_url and isinstance(image_url, str) and image_url.startswith(('http://', 'https://')):
-                            await bot.send_photo(ADMIN_ID, image_url, caption=message, parse_mode='Markdown', reply_markup=keyboard)
-                        else:
-                            await bot.send_message(ADMIN_ID, message, parse_mode='Markdown', reply_markup=keyboard)
-                        logger.info(f"Новость из категории '{category}' отправлена администратору (ID: {news_id})")
-                        break
-                    except Exception as e:
-                        logger.error(f"Ошибка при отправке новости: {e}")
-        await asyncio.sleep(3600)
+                        if add_news(category, title, author, summary_ru, url, image_url, published_at):  # Сохраняем переведенную версию
+                            news = get_news_by_url(url)
+                            news_id = news[0]
+                            
+                            message = truncate_message(title, author, summary_ru, max_length=1024 if image_url else 4096)
+                            keyboard = types.InlineKeyboardMarkup()
+                            keyboard.add(types.InlineKeyboardButton("Отправить", callback_data=f"send_{news_id}"))
+                            
+                            try:
+                                if image_url and isinstance(image_url, str) and image_url.startswith(('http://', 'https://')):
+                                    await bot.send_photo(ADMIN_ID, image_url, caption=message, parse_mode='Markdown', reply_markup=keyboard)
+                                else:
+                                    await bot.send_message(ADMIN_ID, message, parse_mode='Markdown', reply_markup=keyboard)
+                                logger.info(f"Новость из категории '{category}' отправлена администратору (ID: {news_id})")
+                            except Exception as e:
+                                logger.error(f"Ошибка обработки категории {category}: {e}")
+                except Exception as e:
+                    logger.error(f"Ошибка обработки категории {category}: {e}")
+            await asyncio.sleep(3600)  # Перенесено за пределы цикла статей
 
 @dp.callback_query_handler(lambda c: c.data.startswith('send_'))
 async def process_callback_send(callback_query: types.CallbackQuery):
     """Обработка нажатия кнопки 'Отправить'"""
     news_id = int(callback_query.data.split('_')[1])
-    conn = sqlite3.connect('news.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM news WHERE id = ?', (news_id,))
-    news = cursor.fetchone()
-    conn.close()
+    with sqlite3.connect('news.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM news WHERE id = ?', (news_id,))
+        news = cursor.fetchone()
     
     if news:
         category, title, author, summary_ru, url, image_url, published_at = news[1:]  # Уже переведенная суммаризация

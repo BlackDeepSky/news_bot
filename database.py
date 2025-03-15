@@ -16,6 +16,7 @@ def init_db():
             published_at TEXT
         )
     ''')
+    cursor.execute('CREATE INDEX IF NOT EXISTS url_index ON news(url)')
     conn.commit()
     conn.close()
 

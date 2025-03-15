@@ -1,77 +1,50 @@
-import requests
-from bs4 import BeautifulSoup
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lsa import LsaSummarizer
-import nltk
+from transformers import pipeline
+from newspaper import Article
+import aiohttp
 import os
 from loguru import logger
-from newspaper import Article
 
-# Указываем путь к nltk_data
-nltk.data.path.append(os.path.expanduser('~/nltk_data'))
+summarizer = None
 
-def ensure_nltk_resources():
-    """Проверка и загрузка необходимых ресурсов NLTK"""
-    resources = ['punkt', 'punkt_tab']
-    for resource in resources:
-        try:
-            nltk.data.find(f'tokenizers/{resource}')
-            logger.info(f"Ресурс {resource} уже доступен.")
-        except LookupError:
-            logger.info(f"Загружаем {resource} для NLTK...")
-            try:
-                nltk.download(resource, download_dir=os.path.expanduser('~/nltk_data'), raise_on_error=True)
-                logger.info(f"{resource} успешно загружен.")
-            except Exception as e:
-                logger.error(f"Не удалось загрузить {resource}: {e}")
-                raise
-
-def get_article_text(url):
-    """Получение текста статьи по URL с использованием newspaper3k"""
+def load_models():
+    """Инициализация модели суммаризации"""
+    global summarizer
     try:
-        # Используем newspaper3k для извлечения текста
+        summarizer = pipeline(
+            "summarization",
+            model="sshleifer/distilbart-cnn-12-6",
+            framework="pt"
+        )
+        logger.info("Модель для суммаризации загружена")
+    except Exception as e:
+        logger.error(f"Ошибка загрузки модели: {e}")
+        raise
+
+async def get_article_text(url):
+    """Асинхронное получение текста статьи"""
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=10) as response:
+                html = await response.text()
+                
         article = Article(url)
-        # Настраиваем headers для обхода блокировок
-        article.config.request_headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
-        article.config.request_timeout = 10  # Устанавливаем timeout
-        article.download()
+        article.set_html(html)
         article.parse()
-        article_text = article.text.strip()
-        if article_text and len(article_text) > 100:
-            logger.info(f"Успешно извлечен текст статьи через newspaper3k: {url}")
-            return article_text
-
-        # Fallback на requests + BeautifulSoup
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-        paragraphs = soup.find_all(['p', 'div', 'article', 'section'])
-        article_text = ' '.join(p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True) and len(p.get_text(strip=True)) > 50)
-        if article_text:
-            logger.info(f"Извлечен текст через BeautifulSoup: {url}")
-            return article_text
+        
+        if article.text and len(article.text) > 100:
+            return article.text[:3000]  # Ограничение для CPU
+        
         return "Не удалось извлечь текст статьи."
+    
     except Exception as e:
-        logger.error(f"Ошибка при загрузке статьи {url}: {e}")
-        return f"Ошибка при загрузке статьи: {e}"
+        logger.error(f"Ошибка парсинга {url}: {e}")
+        return ""
 
-def summarize_text(text, language='russian', sentences_count=3):
-    """Суммаризация текста"""
-    ensure_nltk_resources()
+def summarize_text(text):
+    """Суммаризация с DistilBART"""
     try:
-        parser = PlaintextParser.from_string(text, Tokenizer(language))
-        summarizer = LsaSummarizer()
-        summary = summarizer(parser.document, sentences_count)
-        return ' '.join(str(sentence) for sentence in summary)
-    except ImportError as e:
-        logger.error(f"Ошибка зависимости в суммаризации: {e}")
-        return f"Ошибка при суммаризации: требуется установка зависимостей ({e})."
+        truncated = " ".join(text.split()[:900])
+        return summarizer(truncated, max_length=150, min_length=30)[0]['summary_text']
     except Exception as e:
-        logger.error(f"Ошибка при суммаризации: {e}")
-        return f"Ошибка при суммаризации: {e}"
+        logger.error(f"Ошибка суммаризации: {e}")
+        return "Ошибка создания сводки"
