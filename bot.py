@@ -13,7 +13,7 @@ from summarizer import load_models, get_article_text, summarize_text
 
 # Настройка логирования
 logger.remove()
-logger.add(sys.stderr, format="{time} {level} {message}", colorize=True)
+logger.add(sys.stderr, format="<green>{time}</green> <level>{level}</level> {message}", colorize=True)
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
@@ -46,15 +46,20 @@ async def fetch_and_send_news():
     """Асинхронная обработка новостей"""
     async with aiohttp.ClientSession() as session:
         while True:
+            logger.info("Начинаем новый цикл поиска новостей...")
             for category in CATEGORIES:
                 try:
                     articles = await get_news(session, category)
+                    logger.info(f"Найдено {len(articles)} новостей в категории '{category}'")
+                    
+                    # Перебираем статьи в категории, пока не найдем новую
                     for article in articles:
                         # Пропуск существующих новостей
                         if get_news_by_url(article['url']):
-                            continue
+                            logger.debug(f"Новость уже существует: {article['url']}")
+                            continue  # Переходим к следующей статье
                             
-                        # Обработка
+                        # Обработка новой статьи
                         title = translate_text(article['title'])
                         author = article.get('author', 'Не указан')
                         url = article['url']
@@ -79,11 +84,15 @@ async def fetch_and_send_news():
                                 else:
                                     await bot.send_message(ADMIN_ID, message, parse_mode='Markdown', reply_markup=keyboard)
                                 logger.info(f"Новость из категории '{category}' отправлена администратору (ID: {news_id})")
+                                break  # Переходим к следующей категории после успешной отправки
                             except Exception as e:
-                                logger.error(f"Ошибка обработки категории {category}: {e}")
+                                logger.error(f"Ошибка отправки новости: {e}")
                 except Exception as e:
-                    logger.error(f"Ошибка обработки категории {category}: {e}")
-            await asyncio.sleep(3600)  # Перенесено за пределы цикла статей
+                    logger.error(f"Ошибка обработки категории '{category}': {e}")
+            
+            # Пауза между циклами (2 часа)
+            logger.info("Ожидание следующего цикла (2 часа)...")
+            await asyncio.sleep(7200)  # 2 часа = 7200 секунд
 
 @dp.callback_query_handler(lambda c: c.data.startswith('send_'))
 async def process_callback_send(callback_query: types.CallbackQuery):
