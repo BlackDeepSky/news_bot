@@ -6,3 +6,4 @@ loguru
 newspaper3k
 python-decouple
 sacremoses
+lxml_html_clean
