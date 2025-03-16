@@ -1,8 +1,7 @@
 aiogram==2.25.1
 aiohttp
 transformers
-torch
-sentencepiece
+torch --index-url https://download.pytorch.org/whl/cpu
 loguru
 newspaper3k
 python-decouple
