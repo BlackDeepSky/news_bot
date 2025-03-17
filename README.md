@@ -13,6 +13,9 @@
    source venv/bin/activate
    pip install -r requirements.txt
    ```
+Для сервера без GPU:
+torch --index-url https://download.pytorch.org/whl/cpu
+
 3.Создайте файл .env с вашими настройками (см. пример ниже).
 4.Запустите бота:
 ```bash
