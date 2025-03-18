@@ -17,6 +17,11 @@
 torch --index-url https://download.pytorch.org/whl/cpu
 
 3.Создайте файл .env с вашими настройками (см. пример ниже).
+BOT_TOKEN = 'your token'
+NEWSAPI_KEY = 'your token'
+ADMIN_ID = your ID
+CHANNEL_ID = 'channel ID'
+
 4.Запустите бота:
 ```bash
 python bot.py
