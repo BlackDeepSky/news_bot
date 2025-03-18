@@ -30,17 +30,12 @@ def sanitize_markdown(text):
         text = text.replace(char, f'\\{char}')
     return text
 
-def truncate_message(title, author, summary, max_length=1024):
-    """Обрезаем сообщение до указанной длины, сохраняя заголовок и автора"""
-    base = f"**{title}**\n\nАвтор: **{author}**\n\n"
-    remaining_length = max_length - len(base)
-    if remaining_length <= 0:
-        base = base[:max_length - 3] + '...'
-        return base
-    truncated_summary = summary[:remaining_length - 3] + '...' if len(summary) > remaining_length else summary
-    if len(summary) > remaining_length:
-        logger.warning(f"Суммаризация обрезана до {remaining_length} символов.")
-    return base + truncated_summary
+def truncate_message(summary, max_length=1024):
+    """Обрезаем сообщение до указанной длины"""
+    if len(summary) > max_length:
+        summary = summary[:max_length - 3] + '...'
+        logger.warning(f"Суммаризация обрезана до {max_length} символов.")
+    return summary
 
 async def fetch_and_send_news():
     """Асинхронная обработка новостей"""
@@ -55,6 +50,7 @@ async def fetch_and_send_news():
                 try:
                     articles = await get_news(session, category)
                     logger.info(f"Найдено {len(articles)} новостей в категории '{category}'")
+                    articles = articles[:2]
                     await process_articles(category, articles)
                 except Exception as e:
                     logger.error(f"Ошибка обработки категории '{category}': {e}")
@@ -65,6 +61,8 @@ async def fetch_and_send_news():
 
 async def process_articles(category, articles):
     """Обработка статей и отправка администратору"""
+    sent_count = 0  # Счетчик отправленных новостей
+    
     for article in articles:
         # Пропуск существующих новостей
         if get_news_by_url(article['url']):
@@ -73,7 +71,6 @@ async def process_articles(category, articles):
         
         # Обработка
         title = translate_text(article['title'])
-        author = article.get('author', 'Не указан')
         url = article['url']
         image_url = article.get('urlToImage', '')
         published_at = article.get('publishedAt', '')
@@ -82,11 +79,12 @@ async def process_articles(category, articles):
         summary = summarize_text(article_text)
         summary_ru = translate_text(summary)
         
-        if add_news(category, title, author, summary_ru, url, image_url, published_at):  # Сохраняем переведенную версию
+        if add_news(category, title, "", summary_ru, url, image_url, published_at):  # Сохраняем переведенную версию
             news = get_news_by_url(url)
             news_id = news[0]
             
-            message = truncate_message(title, author, summary_ru, max_length=1024 if image_url else 4096)
+            # Исправленный вызов truncate_message
+            message = truncate_message(summary_ru, max_length=1024 if image_url else 4096)
             keyboard = types.InlineKeyboardMarkup()
             keyboard.add(types.InlineKeyboardButton("Отправить", callback_data=f"send_{news_id}"))
             
@@ -96,6 +94,11 @@ async def process_articles(category, articles):
                 else:
                     await bot.send_message(ADMIN_ID, message, parse_mode='Markdown', reply_markup=keyboard)
                 logger.info(f"Новость из категории '{category}' отправлена администратору (ID: {news_id})")
+                sent_count += 1
+                
+                # Прерываем цикл, если отправлено 3 новости
+                if sent_count >= 3:
+                    break
             except Exception as e:
                 logger.error(f"Ошибка отправки новости: {e}")
 
@@ -111,7 +114,10 @@ async def process_callback_send(callback_query: types.CallbackQuery):
     if news:
         category, title, author, summary_ru, url, image_url, published_at = news[1:]  # Уже переведенная суммаризация
         summary_ru = sanitize_markdown(summary_ru)
-        message = truncate_message(title, author, summary_ru, max_length=1024 if image_url else 4096)
+        
+        # Исправленный вызов truncate_message
+        message = truncate_message(summary_ru, max_length=1024 if image_url else 4096)
+        
         try:
             if image_url and isinstance(image_url, str) and image_url.startswith(('http://', 'https://')):
                 await bot.send_photo(CHANNEL_ID, image_url, caption=message, parse_mode='Markdown')
