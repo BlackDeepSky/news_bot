@@ -1,0 +1,38 @@
+name: Post news
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    # Нужно на запись, чтобы шаг "Commit updated database" мог запушить news.db.
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python main.py
+
+      - name: Commit updated database
+        run: |
+          git config user.name "news-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add news.db
+          git diff --cached --quiet || git commit -m "Update news database"
+          git push

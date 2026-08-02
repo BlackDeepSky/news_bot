@@ -1,10 +1,5 @@
-aiogram==2.25.1
-aiohttp
-transformers
-torch --index-url https://download.pytorch.org/whl/cpu
-loguru
-newspaper3k
-python-decouple
-sacremoses
-lxml_html_clean
-sentencepiece
+feedparser==6.0.14
+trafilatura==2.2.0
+requests==2.34.2
+loguru==0.7.3
+python-decouple==3.8

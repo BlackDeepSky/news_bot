@@ -1,28 +1,65 @@
 # Telegram News Bot
-Бот для Telegram, который собирает новости с NewsAPI, суммирует их и отправляет администратору для публикации в канале.
 
-## Установка
-1. Клонируйте репозиторий:
-   ```bash
-   git clone https://github.com/yourusername/telegram-news-bot.git
-   cd telegram-news-bot
-   ```
-2.Создайте виртуальное окружение и установите зависимости:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
-Для сервера без GPU:
-torch --index-url https://download.pytorch.org/whl/cpu
+Бот собирает новости из RSS-лент про ИИ, робототехнику, науку, программирование
+и ИТ, пересказывает их по-русски через бесплатную модель на OpenRouter и
+публикует в Telegram-канал. Работает без постоянно работающего сервера —
+запускается по расписанию через GitHub Actions.
 
-3.Создайте файл .env с вашими настройками (см. пример ниже).
-BOT_TOKEN = 'your token'
-NEWSAPI_KEY = 'your token'
-ADMIN_ID = your ID
-CHANNEL_ID = 'channel ID'
+## Архитектура
 
-4.Запустите бота:
+```
+feeds.py      -> читает RSS-ленты (feedparser)
+extractor.py  -> достаёт текст статьи со страницы (trafilatura)
+ai.py         -> переводит+суммирует одним запросом к OpenRouter
+database.py   -> SQLite-файл news.db — какие статьи уже публиковали
+publisher.py  -> публикует в канал напрямую через Telegram Bot API
+main.py       -> связывает всё вместе, разовый прогон
+```
+
+Никакого постоянно работающего процесса нет: `main.py` — это одноразовый
+скрипт, который делает один проход по всем источникам и завершается. Между
+запусками состояние (какие статьи уже публиковались) хранится в `news.db`,
+который воркфлоу коммитит обратно в репозиторий — GitHub Actions раннер
+эфемерный и ничего не помнит между запусками сам по себе.
+
+## Настройка
+
+### 1. Telegram-бот
+
+1. Создайте бота через [@BotFather](https://t.me/BotFather), получите `BOT_TOKEN`.
+2. Добавьте бота администратором в канал, куда он будет постить.
+3. `CHANNEL_ID` — это `@username_канала` (для публичных) или числовой ID вида
+   `-100xxxxxxxxxx` (для приватных — его можно узнать, например, через
+   [@userinfobot](https://t.me/userinfobot) или переслав сообщение из канала боту вроде @JsonDumpBot).
+
+### 2. OpenRouter (бесплатный ИИ)
+
+1. Зарегистрируйтесь на [openrouter.ai](https://openrouter.ai) — только email,
+   карта не нужна для бесплатных моделей.
+2. Создайте API-ключ (`OPENROUTER_API_KEY`).
+3. Без пополнения баланса действует ограниченная дневная квота запросов
+   (см. свой dashboard на сайте) — под неё настроены `MAX_ARTICLES_PER_RUN`
+   и `MAX_ARTICLES_PER_FEED` в `config.py`.
+4. Список бесплатных моделей (`OPENROUTER_MODEL` в `config.py`) периодически
+   меняется — актуальный: https://openrouter.ai/models?max_price=0
+
+### 3. Запуск через GitHub Actions (рекомендуется)
+
+1. Запушьте репозиторий на GitHub.
+2. В Settings → Secrets and variables → Actions добавьте три секрета:
+   `BOT_TOKEN`, `CHANNEL_ID`, `OPENROUTER_API_KEY`.
+3. Убедитесь, что в Settings → Actions → General → Workflow permissions
+   включено "Read and write permissions" — воркфлоу коммитит `news.db`
+   обратно в репозиторий.
+4. Воркфлоу `.github/workflows/post_news.yml` запускается по расписанию
+   (каждые 3 часа) и вручную — вкладка Actions → Post news → Run workflow.
+
+### 4. Локальный запуск (для отладки)
+
 ```bash
-python bot.py
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # и вписать реальные значения
+python main.py
 ```
