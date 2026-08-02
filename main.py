@@ -5,8 +5,9 @@ from loguru import logger
 from config import FEEDS, CHANNEL_ID, MAX_ARTICLES_PER_RUN, MAX_ARTICLES_PER_FEED
 from database import init_db, is_known, add_news
 from feeds import get_entries, entry_image
-from extractor import get_article_text
+from extractor import get_article
 from ai import process_article
+from pexels import search_photo
 from image_gen import generate_image_url
 from publisher import post_news
 
@@ -37,19 +38,26 @@ def run():
                 if not url or is_known(url):
                     continue
 
-                text = get_article_text(url)
+                text, og_image = get_article(url)
                 if not text:
                     logger.warning(f"Пропуск (не удалось извлечь текст): {url}")
                     continue
 
-                title_ru, summary_ru = process_article(entry.get('title', ''), text)
+                title_ru, summary_ru, image_prompt = process_article(entry.get('title', ''), text)
                 if not summary_ru:
                     logger.warning(f"Пропуск (ИИ не ответил): {url}")
                     continue
 
-                # Картинка из RSS есть далеко не всегда (проверено вживую: у Habr
-                # и TechCrunch пусто) — тогда генерируем свою по заголовку.
-                image_url = entry_image(entry) or generate_image_url(title_ru)
+                # Цепочка источников картинки, от самого достоверного к самому
+                # крайнему: настоящая картинка из RSS -> настоящая картинка со
+                # страницы статьи (og:image) -> релевантное стоковое фото по
+                # теме -> и только если вообще ничего не нашли — рисуем сами.
+                image_url = (
+                    entry_image(entry)
+                    or og_image
+                    or search_photo(image_prompt)
+                    or generate_image_url(image_prompt)
+                )
                 published_at = entry.get('published', '')
 
                 if not add_news(category, title_ru, summary_ru, url, image_url, published_at):

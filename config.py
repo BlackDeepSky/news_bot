@@ -3,6 +3,7 @@ from decouple import config
 BOT_TOKEN = config('BOT_TOKEN')
 CHANNEL_ID = config('CHANNEL_ID')
 OPENROUTER_API_KEY = config('OPENROUTER_API_KEY')
+PEXELS_API_KEY = config('PEXELS_API_KEY')
 
 # Бесплатная модель на OpenRouter. Список бесплатных моделей меняется —
 # актуальный смотреть на https://openrouter.ai/models?max_price=0

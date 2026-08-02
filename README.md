@@ -9,12 +9,18 @@
 
 ```
 feeds.py      -> читает RSS-ленты (feedparser)
-extractor.py  -> достаёт текст статьи со страницы (trafilatura)
-ai.py         -> переводит+суммирует одним запросом к OpenRouter
+extractor.py  -> достаёт текст статьи и og:image со страницы (trafilatura)
+ai.py         -> переводит+суммирует+даёт описание для картинки одним запросом к OpenRouter
+pexels.py     -> ищет стоковое фото по теме статьи (Pexels API)
+image_gen.py  -> рисует картинку сам, если больше неоткуда взять (Pollinations.ai)
 database.py   -> SQLite-файл news.db — какие статьи уже публиковали
 publisher.py  -> публикует в канал напрямую через Telegram Bot API
 main.py       -> связывает всё вместе, разовый прогон
 ```
+
+Картинка к посту ищется по цепочке от самого достоверного источника к самому
+крайнему: картинка из RSS → `og:image` со страницы статьи → стоковое фото по
+теме на Pexels → и только если ничего не нашлось — рисуем сами через ИИ.
 
 Никакого постоянно работающего процесса нет: `main.py` — это одноразовый
 скрипт, который делает один проход по всем источникам и завершается. Между
@@ -43,18 +49,24 @@ main.py       -> связывает всё вместе, разовый прог
 4. Список бесплатных моделей (`OPENROUTER_MODEL` в `config.py`) периодически
    меняется — актуальный: https://openrouter.ai/models?max_price=0
 
-### 3. Запуск через GitHub Actions (рекомендуется)
+### 3. Pexels (бесплатные стоковые фото)
+
+1. Зарегистрируйтесь на [pexels.com/api](https://www.pexels.com/api/) —
+   только email, карта не нужна, ключ выдаётся сразу без модерации.
+2. Получите API-ключ (`PEXELS_API_KEY`).
+
+### 4. Запуск через GitHub Actions (рекомендуется)
 
 1. Запушьте репозиторий на GitHub.
-2. В Settings → Secrets and variables → Actions добавьте три секрета:
-   `BOT_TOKEN`, `CHANNEL_ID`, `OPENROUTER_API_KEY`.
+2. В Settings → Secrets and variables → Actions добавьте четыре секрета:
+   `BOT_TOKEN`, `CHANNEL_ID`, `OPENROUTER_API_KEY`, `PEXELS_API_KEY`.
 3. Убедитесь, что в Settings → Actions → General → Workflow permissions
    включено "Read and write permissions" — воркфлоу коммитит `news.db`
    обратно в репозиторий.
 4. Воркфлоу `.github/workflows/post_news.yml` запускается по расписанию
    (каждые 3 часа) и вручную — вкладка Actions → Post news → Run workflow.
 
-### 4. Локальный запуск (для отладки)
+### 5. Локальный запуск (для отладки)
 
 ```bash
 python3 -m venv venv
