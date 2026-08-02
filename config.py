@@ -6,7 +6,10 @@ OPENROUTER_API_KEY = config('OPENROUTER_API_KEY')
 
 # Бесплатная модель на OpenRouter. Список бесплатных моделей меняется —
 # актуальный смотреть на https://openrouter.ai/models?max_price=0
-OPENROUTER_MODEL = 'google/gemma-4-31b-it:free'
+# gemma-4-31b-it временно недоступна (общий бесплатный пул Google AI Studio
+# был перегружен на момент проверки, отдавал 429 всем без исключения) —
+# nemotron прошла живую проверку.
+OPENROUTER_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free'
 
 DB_PATH = 'news.db'
 

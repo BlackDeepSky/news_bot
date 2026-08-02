@@ -7,6 +7,7 @@ from database import init_db, is_known, add_news
 from feeds import get_entries, entry_image
 from extractor import get_article_text
 from ai import process_article
+from image_gen import generate_image_url
 from publisher import post_news
 
 logger.remove()
@@ -46,7 +47,9 @@ def run():
                     logger.warning(f"Пропуск (ИИ не ответил): {url}")
                     continue
 
-                image_url = entry_image(entry)
+                # Картинка из RSS есть далеко не всегда (проверено вживую: у Habr
+                # и TechCrunch пусто) — тогда генерируем свою по заголовку.
+                image_url = entry_image(entry) or generate_image_url(title_ru)
                 published_at = entry.get('published', '')
 
                 if not add_news(category, title_ru, summary_ru, url, image_url, published_at):
