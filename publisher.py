@@ -26,16 +26,19 @@ def _build_caption(title, summary, url, max_length):
     return _truncate(caption, max_length)
 
 
-def post_news(chat_id, title, summary, url, image_url):
-    """Публикует новость в канал. Если Telegram не смог обработать фото
-    (битая ссылка, недоступный хост) — отправляет тот же текст без фото,
-    вместо того чтобы терять новость."""
-    if image_url:
+def post_news(chat_id, title, summary, url, image_bytes, image_content_type='image/jpeg'):
+    """Публикует новость в канал. Картинка отправляется байтами (multipart),
+    а не ссылкой — Telegram принимает файл напрямую и не зависит от того,
+    доступен ли внешний хост в момент публикации. Если Telegram не смог
+    обработать фото — отправляем тот же текст без фото, чтобы не терять
+    новость полностью."""
+    if image_bytes:
         caption = _build_caption(title, summary, url, max_length=1024)
         try:
             response = requests.post(
                 f'{API_URL}/sendPhoto',
-                data={'chat_id': chat_id, 'photo': image_url, 'caption': caption, 'parse_mode': 'HTML'},
+                data={'chat_id': chat_id, 'caption': caption, 'parse_mode': 'HTML'},
+                files={'photo': ('news.jpg', image_bytes, image_content_type)},
                 timeout=30,
             )
             response.raise_for_status()

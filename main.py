@@ -9,6 +9,7 @@ from extractor import get_article
 from ai import process_article
 from pexels import search_photo
 from image_gen import generate_image_url
+from images import fetch_image
 from publisher import post_news
 
 logger.remove()
@@ -63,19 +64,27 @@ def run():
             # крайнему: настоящая картинка из RSS -> настоящая картинка со
             # страницы статьи (og:image) -> релевантное стоковое фото по
             # теме -> и только если вообще ничего не нашли — рисуем сами.
-            image_url = (
-                entry_image(entry)
-                or og_image
-                or search_photo(image_prompt)
-                or generate_image_url(image_prompt)
-            )
+            # Скачиваем выбранную картинку сами и отдаём байты в Telegram
+            # (см. publisher.post_news): если дать Telegram ссылку, он сам
+            # полезет по ней и срежет посты на медленных сервисах вроде
+            # Pollinations (генерация занимает минуту).
+            candidates = [
+                entry_image(entry),
+                og_image,
+                search_photo(image_prompt),
+                generate_image_url(image_prompt),
+            ]
+            image_bytes, image_url = fetch_image(candidates)
+            if not image_bytes:
+                logger.warning(f"Пропуск (не удалось получить картинку): {url}")
+                continue
             published_at = entry.get('published', '')
 
             if not add_news(category, title_ru, summary_ru, url, image_url, published_at):
                 # Другой источник в этом же прогоне уже добавил тот же url
                 continue
 
-            if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_url):
+            if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes):
                 posted += 1
                 logger.info(f"Опубликовано [{category}] {title_ru}")
             else:
