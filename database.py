@@ -17,6 +17,33 @@ def init_db():
             published_at TEXT
         )
     ''')
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS state (
+            key TEXT PRIMARY KEY,
+            value INTEGER
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def get_state(key, default=0):
+    """Читает сервисное значение (например, курсор round-robin по источники)."""
+    conn = sqlite3.connect(DB_PATH)
+    row = conn.execute('SELECT value FROM state WHERE key = ?', (key,)).fetchone()
+    conn.close()
+    return row[0] if row else default
+
+
+def set_state(key, value):
+    """Пишет или обновляет сервисное значение. UPSERT, поэтому повторный
+    прогон не плодит дубликаты строк."""
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute(
+        'INSERT INTO state (key, value) VALUES (?, ?) '
+        'ON CONFLICT(key) DO UPDATE SET value = excluded.value',
+        (key, value),
+    )
     conn.commit()
     conn.close()
 
