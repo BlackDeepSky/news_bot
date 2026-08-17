@@ -55,7 +55,7 @@ def run():
                 logger.warning(f"Пропуск (не удалось извлечь текст): {url}")
                 continue
 
-            title_ru, summary_ru, image_prompt = process_article(entry.get('title', ''), text)
+            title_ru, summary_ru, image_prompt, tags_ru = process_article(entry.get('title', ''), text)
             if not summary_ru:
                 logger.warning(f"Пропуск (ИИ не ответил): {url}")
                 continue
@@ -84,7 +84,8 @@ def run():
                 # Другой источник в этом же прогоне уже добавил тот же url
                 continue
 
-            if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes):
+            if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes,
+                     category=category, tags=tags_ru):
                 posted += 1
                 logger.info(f"Опубликовано [{category}] {title_ru}")
             else:
