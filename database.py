@@ -1,73 +1,76 @@
-import sqlite3
+import json
+from pathlib import Path
 
-from config import DB_PATH
+# Память бота между запусками теперь живёт в двух текстовых файлах, а не в
+# бинарнике SQLite. Почему так:
+#   * рантайму нужны только два факта — «этот URL уже постили» и «курсор
+#     round-robin по источникам», никакой транзакционной мощности SQLite
+#     здесь не используется;
+#   * бинарник news.db в git порождал коммит на каждый пост (~2 КБ блоба),
+#     служебные коммиты «Update news database» и бинарные конфликты при
+#     merge — текстовая история этих проблем не имеет и diff'ится как обычный
+#     код (git остаётся единственным хранилищем памяти бота на эфемерном
+#     раннере GitHub Actions).
+DATA_DIR = Path('data')
+URLS_FILE = DATA_DIR / 'seen_urls.txt'
+STATE_FILE = DATA_DIR / 'state.json'
+
+# Набор URL держим в памяти на время прогона, файл читаем один раз в init_db.
+_seen_urls = set()
+
+
+def _load_seen_urls():
+    if not URLS_FILE.exists():
+        return set()
+    return {line.strip() for line in URLS_FILE.read_text(encoding='utf-8').splitlines() if line.strip()}
+
+
+def _load_state():
+    if not STATE_FILE.exists():
+        return {}
+    try:
+        return json.loads(STATE_FILE.read_text(encoding='utf-8'))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _save_state(state):
+    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
 def init_db():
-    """Инициализация базы данных"""
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS news (
-            id INTEGER PRIMARY KEY,
-            category TEXT,
-            title TEXT,
-            summary TEXT,
-            url TEXT UNIQUE,
-            image_url TEXT,
-            published_at TEXT
-        )
-    ''')
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS state (
-            key TEXT PRIMARY KEY,
-            value INTEGER
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    """Готовит файлы памяти бота: директорию, список URL и файл состояния."""
+    DATA_DIR.mkdir(exist_ok=True)
+    global _seen_urls
+    _seen_urls = _load_seen_urls()
+    if not STATE_FILE.exists():
+        _save_state({})
 
 
 def get_state(key, default=0):
     """Читает сервисное значение (например, курсор round-robin по источники)."""
-    conn = sqlite3.connect(DB_PATH)
-    row = conn.execute('SELECT value FROM state WHERE key = ?', (key,)).fetchone()
-    conn.close()
-    return row[0] if row else default
+    return _load_state().get(key, default)
 
 
 def set_state(key, value):
-    """Пишет или обновляет сервисное значение. UPSERT, поэтому повторный
-    прогон не плодит дубликаты строк."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute(
-        'INSERT INTO state (key, value) VALUES (?, ?) '
-        'ON CONFLICT(key) DO UPDATE SET value = excluded.value',
-        (key, value),
-    )
-    conn.commit()
-    conn.close()
+    """Пишет или обновляет сервисное значение."""
+    state = _load_state()
+    state[key] = value
+    _save_state(state)
 
 
 def is_known(url):
-    """Проверка, публиковали ли уже эту статью"""
-    conn = sqlite3.connect(DB_PATH)
-    row = conn.execute('SELECT 1 FROM news WHERE url = ?', (url,)).fetchone()
-    conn.close()
-    return row is not None
+    """Проверка, публиковали ли уже эту статью."""
+    return url in _seen_urls
 
 
 def add_news(category, title, summary, url, image_url, published_at):
-    """Добавление новости в базу. False, если url уже есть (UNIQUE)."""
-    conn = sqlite3.connect(DB_PATH)
-    try:
-        conn.execute(
-            '''INSERT INTO news (category, title, summary, url, image_url, published_at)
-               VALUES (?, ?, ?, ?, ?, ?)''',
-            (category, title, summary, url, image_url, published_at),
-        )
-        conn.commit()
-        return True
-    except sqlite3.IntegrityError:
+    """Отмечает статью как опубликованную. False, если url уже был (не
+    плодим дубликатов). Заголовок и остальные поля не храним: для рантайма
+    нужен только URL, архив постов — сам канал в Telegram."""
+    if url in _seen_urls:
         return False
-    finally:
-        conn.close()
+    with URLS_FILE.open('a', encoding='utf-8') as f:
+        f.write(url + '\n')
+    _seen_urls.add(url)
+    return True

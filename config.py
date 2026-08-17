@@ -12,8 +12,6 @@ PEXELS_API_KEY = config('PEXELS_API_KEY')
 # nemotron прошла живую проверку.
 OPENROUTER_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free'
 
-DB_PATH = 'news.db'
-
 # Лимит на прогон: 8 прогонов (см. cron в workflow) x 1 новость = до 8
 # постов/сутки, равномерно в дневные часы. Round-robin по источникам (main.py)
 # распределяет квоту по кругу, так что за день в канал попадают разные
