@@ -139,3 +139,4 @@ https://phys.org/news/2026-08-ancient-egyptian-tomb-burial-trends.html
 https://habr.com/ru/articles/1071378/?utm_campaign=1071378&utm_source=habrahabr&utm_medium=rss
 https://dev.to/shameer_sh_mg/llm-lifecycle-1gei
 https://www.infoq.com/news/2026/08/dotnet-11-preview7-maui/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://github.blog/ai-and-ml/github-copilot/how-canvases-make-agentic-workflows-visible-steerable-and-cost-efficient/
