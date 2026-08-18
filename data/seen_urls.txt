@@ -137,3 +137,4 @@ https://habr.com/ru/articles/1071316/?utm_campaign=1071316&utm_source=habrahabr&
 https://www.sciencedaily.com/releases/2026/08/260816044853.htm
 https://phys.org/news/2026-08-ancient-egyptian-tomb-burial-trends.html
 https://habr.com/ru/articles/1071378/?utm_campaign=1071378&utm_source=habrahabr&utm_medium=rss
+https://dev.to/shameer_sh_mg/llm-lifecycle-1gei
