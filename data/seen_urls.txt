@@ -150,3 +150,4 @@ https://stackoverflow.blog/2026/08/18/building-an-agentic-sdlc-with-a-qa-enginee
 https://habr.com/ru/companies/avito/articles/1069734/?utm_campaign=1069734&utm_source=habrahabr&utm_medium=rss
 https://news.mit.edu/2026/when-ai-art-has-no-author-generated-images-often-cant-be-traced-to-training-data-0818
 https://openai.com/index/our-commitment-to-zero-data-retention
+https://spectrum.ieee.org/arctic-iceberg-drones
