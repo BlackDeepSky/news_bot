@@ -158,3 +158,4 @@ https://phys.org/news/2026-08-analysis-reveals-global-mangrove-losses.html
 https://habr.com/ru/companies/avito/articles/1072472/?utm_campaign=1072472&utm_source=habrahabr&utm_medium=rss
 https://dev.to/arthur_luca/how-to-create-your-own-claude-code-skill-with-skillmd-3555
 https://www.infoq.com/presentations/local-first-sync-engine/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://github.blog/news-insights/company-news/the-august-17-outage-and-the-work-ahead/
