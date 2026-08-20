@@ -152,3 +152,4 @@ https://news.mit.edu/2026/when-ai-art-has-no-author-generated-images-often-cant-
 https://openai.com/index/our-commitment-to-zero-data-retention
 https://spectrum.ieee.org/arctic-iceberg-drones
 https://www.therobotreport.com/kollmorgen-give-joint-by-joint-guide-humanoid-motion-robobusiness/
+https://habr.com/ru/companies/beget/articles/1067920/?utm_campaign=1067920&utm_source=habrahabr&utm_medium=rss
