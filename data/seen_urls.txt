@@ -161,3 +161,4 @@ https://www.infoq.com/presentations/local-first-sync-engine/?utm_campaign=infoq_
 https://github.blog/news-insights/company-news/the-august-17-outage-and-the-work-ahead/
 https://news.mit.edu/2026/paving-way-for-greener-ammonia-production-0820
 https://openai.com/index/introducing-ai-futures
+https://spectrum.ieee.org/persona-ai-humanoid-robot-welding
