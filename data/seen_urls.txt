@@ -169,3 +169,4 @@ https://phys.org/news/2026-08-company-mergers-prices-consumers.html
 https://habr.com/ru/articles/1073128/?utm_campaign=1073128&utm_source=habrahabr&utm_medium=rss
 https://dev.to/billahdotdev/problem-engineering-why-defining-the-problem-matters-more-than-your-prompt-5696
 https://www.infoq.com/news/2026/08/vite-plus-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-managing-your-work/
