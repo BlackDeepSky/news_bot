@@ -171,3 +171,4 @@ https://dev.to/billahdotdev/problem-engineering-why-defining-the-problem-matters
 https://www.infoq.com/news/2026/08/vite-plus-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-managing-your-work/
 https://techcrunch.com/2026/08/21/michael-polansky-is-training-an-ai-model-on-skin-thats-still-alive/
+https://arstechnica.com/science/2026/08/memories-stick-around-even-after-half-the-synapses-are-gone/
