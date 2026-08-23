@@ -181,3 +181,4 @@ https://habr.com/ru/articles/1073404/?utm_campaign=1073404&utm_source=habrahabr&
 https://openai.com/index/stampli
 https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/
 https://www.therobotreport.com/use-digital-twin-explore-automation-before-committing-capital/
+https://habr.com/ru/companies/ruvds/articles/1072270/?utm_campaign=1072270&utm_source=habrahabr&utm_medium=rss
