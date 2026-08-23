@@ -178,3 +178,4 @@ https://www.technologyreview.com/2026/08/21/1142762/the-download-space-mirrors-t
 https://nappertime.com/the-golden-rule-of-becoming-a-better-writer/
 https://stackoverflow.blog/2026/08/21/dispatches-from-o-reilly-the-right-amount-of-spec-for-agentic-development/
 https://habr.com/ru/articles/1073404/?utm_campaign=1073404&utm_source=habrahabr&utm_medium=rss
+https://openai.com/index/stampli
