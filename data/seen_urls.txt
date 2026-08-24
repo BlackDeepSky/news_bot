@@ -187,3 +187,4 @@ https://phys.org/news/2026-08-protein-degradation-humans-slowly-mice.html
 https://habr.com/ru/articles/1073550/?utm_campaign=1073550&utm_source=habrahabr&utm_medium=rss
 https://dev.to/michael_su_2d935214f6d114/the-evolution-of-chinas-urban-pilot-assist-from-exam-cramming-to-one-stage-end-to-end-5bmn
 https://www.infoq.com/articles/rightsizing-platform-engineering/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://techcrunch.com/2026/08/24/hugging-face-reportedly-in-talks-to-be-acquired-for-13b/
