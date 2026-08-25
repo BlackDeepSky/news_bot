@@ -197,3 +197,4 @@ https://stackoverflow.blog/2026/08/25/inside-linkedin-s-cognitive-memory-agent/
 https://habr.com/ru/articles/1074298/?utm_campaign=1074298&utm_source=habrahabr&utm_medium=rss
 https://news.mit.edu/2026/generating-scenarios-extreme-events-without-extreme-data-0824
 https://openai.com/index/the-full-stack-behind-abundant-intelligence
+https://spectrum.ieee.org/ollobot-ai-companion-robot
