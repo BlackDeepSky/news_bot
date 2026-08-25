@@ -195,3 +195,4 @@ https://www.technologyreview.com/2026/08/24/1142863/the-download-kids-outlearnin
 https://github.com/dragthelake/ambient-context
 https://stackoverflow.blog/2026/08/25/inside-linkedin-s-cognitive-memory-agent/
 https://habr.com/ru/articles/1074298/?utm_campaign=1074298&utm_source=habrahabr&utm_medium=rss
+https://news.mit.edu/2026/generating-scenarios-extreme-events-without-extreme-data-0824
