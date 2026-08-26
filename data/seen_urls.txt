@@ -204,3 +204,4 @@ https://www.sciencedaily.com/releases/2026/08/260824065605.htm
 https://phys.org/news/2026-08-butterfly-crystals-enable-durable-potentially.html
 https://habr.com/ru/articles/1074764/?utm_campaign=1074764&utm_source=habrahabr&utm_medium=rss
 https://dev.to/zakirez/i-built-bulkimgconvert-compress-resize-crop-convert-images-100-in-your-browser-3ida
+https://www.infoq.com/news/2026/08/aws-spec-driven-data-workflow/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
