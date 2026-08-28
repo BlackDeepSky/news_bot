@@ -207,3 +207,4 @@ https://dev.to/zakirez/i-built-bulkimgconvert-compress-resize-crop-convert-image
 https://www.infoq.com/news/2026/08/aws-spec-driven-data-workflow/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://github.blog/ai-and-ml/llms/how-to-evaluate-llms-before-production/
 https://techcrunch.com/2026/08/27/googles-ai-mode-can-now-track-flight-prices-help-book-hotels-and-more/
+https://arstechnica.com/ai/2026/08/anthropics-new-hardware-standard-lets-ai-agents-control-the-physical-world/
