@@ -23,6 +23,12 @@ OPENROUTER_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free'
 MAX_ARTICLES_PER_RUN = 1
 MAX_ARTICLES_PER_FEED = 2
 
+# Сколько статей-кандидатов (заголовок + сниппет из RSS, без извлечения полного
+# текста) собрать для выбора самой интересной одним LLM-запросом. Отбор
+# добавляет 1 вызов OpenRouter на пост (см. selector.main), что при 8x1
+# постах/сутки ~= 16 запросов — всё ещё в запасе квоты ~50.
+CANDIDATES_PER_RUN = 3
+
 # category -> [(человекочитаемое имя источника, URL RSS-ленты), ...]
 FEEDS = {
     'ИИ': [

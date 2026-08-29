@@ -38,8 +38,6 @@ PROMPT = (
     "Напоминание: поля «Заголовок», «Текст» и «Теги» должны быть полностью на "
     "русском языке, без единого слова на английском или другом языке (кроме "
     "имён собственных). Поле «Картинка» — всегда на английском.\n\n"
-    "Заголовок статьи: {title}\n\n"
-    "Текст статьи:\n{text}"
 )
 
 # \s* вместо \s*\n+\s* между полями: вживую модель иногда пишет "Картинка:"
@@ -81,23 +79,33 @@ def process_article(title, text):
     if not text:
         return '', '', '', ''
 
-    payload = {
-        'model': OPENROUTER_MODEL,
-        'messages': [
-            {'role': 'system', 'content': SYSTEM_PROMPT},
-            {'role': 'user', 'content': PROMPT.format(title=title, text=text)},
-        ],
-        'temperature': 0.3,
-        'max_tokens': 500,
-        # Часть бесплатных моделей — reasoning-модели: без этого флага они
-        # тратят весь max_tokens на рассуждения вслух и обрезаются раньше,
-        # чем успевают выдать сам ответ (поймали вживую: content содержал
-        # заглушку из промпта и оборванное рассуждение вместо результата).
-        'reasoning': {'enabled': False},
-    }
-    headers = {'Authorization': f'Bearer {OPENROUTER_API_KEY}'}
-
     try:
+        # Собираем текст запроса конкатенацией, а не через str.format: текст
+        # статьи (а иногда и заголовок) может содержать фигурные скобки — код,
+        # JSON, C++-шаблоны. .format(...) на такой строке бросил бы KeyError
+        # и уронил весь прогон; конкатенация скобки не трогает. Сборка тоже
+        # внутри try, чтобы любая ошибка не вылетела за обработчик.
+        user_content = (
+            PROMPT
+            + "\nЗаголовок статьи: " + title
+            + "\n\nТекст статьи:\n" + text
+        )
+        payload = {
+            'model': OPENROUTER_MODEL,
+            'messages': [
+                {'role': 'system', 'content': SYSTEM_PROMPT},
+                {'role': 'user', 'content': user_content},
+            ],
+            'temperature': 0.3,
+            'max_tokens': 500,
+            # Часть бесплатных моделей — reasoning-модели: без этого флага они
+            # тратят весь max_tokens на рассуждения вслух и обрезаются раньше,
+            # чем успевают выдать сам ответ (поймали вживую: content содержал
+            # заглушку из промпта и оборванное рассуждение вместо результата).
+            'reasoning': {'enabled': False},
+        }
+        headers = {'Authorization': f'Bearer {OPENROUTER_API_KEY}'}
+
         response = requests.post(API_URL, json=payload, headers=headers, timeout=60)
         response.raise_for_status()
         content = response.json()['choices'][0]['message']['content'].strip()

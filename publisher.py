@@ -9,6 +9,14 @@ from config import BOT_TOKEN
 API_URL = f'https://api.telegram.org/bot{BOT_TOKEN}'
 
 
+def _ok(response):
+    """True, если Telegram действительно принял сообщение. raise_for_status()
+    ловит только HTTP-ошибки, но Bot API на бизнес-ошибку (битая HTML-разметка,
+    неверный chat_id) отвечает HTTP 200 с полем ok: false — без этой проверки
+    отправка считалась бы успешной, хотя ничего не ушло."""
+    return response.json().get('ok') is True
+
+
 def _normalize_tags(category, tags, max_tags=3):
     """Собирает финальный список хэштегов поста: обязательный тег категории
     источника (из FEEDS — «ИИ», «Наука» и т.п.) плюс до двух тем от модели.
@@ -78,6 +86,8 @@ def post_news(chat_id, title, summary, url, image_bytes, category='',
                 timeout=30,
             )
             response.raise_for_status()
+            if not _ok(response):
+                raise RuntimeError(f"Telegram вернул ok:false: {response.json().get('description')}")
             return True
         except Exception as e:
             logger.warning(f"Не удалось отправить фото ({e}), пробую текстом")
@@ -90,6 +100,8 @@ def post_news(chat_id, title, summary, url, image_bytes, category='',
             timeout=30,
         )
         response.raise_for_status()
+        if not _ok(response):
+            raise RuntimeError(f"Telegram вернул ok:false: {response.json().get('description')}")
         return True
     except Exception as e:
         logger.error(f"Ошибка отправки в Telegram: {e}")
