@@ -14,6 +14,14 @@ jobs:
     # Нужно на запись, чтобы шаг "Commit bot data" мог запушить data/.
     permissions:
       contents: write
+    # Не даём запускаться одновременно (cron + ручной workflow_dispatch):
+    # иначе два прогона гоняются за data/state.json и за git push.
+    concurrency:
+      group: post-news
+      cancel-in-progress: false
+    # Зависший внешний хост (feed/trafilatura) не должен жечь весь бюджет
+    # джобы (по умолчанию — 6 часов), ограничиваем жёстко.
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v4

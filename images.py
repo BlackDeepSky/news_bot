@@ -1,6 +1,8 @@
 import requests
 from loguru import logger
 
+from config import MAX_IMAGE_BYTES
+
 
 def download_image(url, timeout=90):
     """Скачивает картинку и возвращает (байты, content-type), если URL реально
@@ -10,18 +12,32 @@ def download_image(url, timeout=90):
         return None
 
     try:
-        response = requests.get(url, timeout=timeout)
-        response.raise_for_status()
+        # stream=True + iter_content: читаем по кускам и обрываем, как только
+        # набралось больше MAX_IMAGE_BYTES — иначе response.content собрал бы
+        # весь (возможно гигантский) файл в память до любой проверки.
+        with requests.get(url, timeout=timeout, stream=True) as response:
+            response.raise_for_status()
+            content_type = response.headers.get('content-type', '')
+            if not content_type.startswith('image/'):
+                logger.warning(f"URL не отдал картинку {url}: content-type={content_type}")
+                return None
+
+            chunks = []
+            total = 0
+            for chunk in response.iter_content(chunk_size=65536):
+                total += len(chunk)
+                if total > MAX_IMAGE_BYTES:
+                    logger.warning(f"Картинка больше {MAX_IMAGE_BYTES} байт, пропускаю: {url}")
+                    return None
+                chunks.append(chunk)
+            if not chunks:
+                logger.warning(f"URL не отдал картинку {url}: пустые байты")
+                return None
     except Exception as e:
         logger.warning(f"Не удалось скачать картинку {url}: {e}")
         return None
 
-    content_type = response.headers.get('content-type', '')
-    if not content_type.startswith('image/') or not response.content:
-        logger.warning(f"URL не отдал картинку {url}: content-type={content_type}")
-        return None
-
-    return response.content, content_type
+    return b''.join(chunks), content_type
 
 
 def fetch_image(candidates, timeout=90):

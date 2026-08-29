@@ -1,9 +1,9 @@
 import random
 import re
-import requests
 from loguru import logger
 
 from config import OPENROUTER_API_KEY, OPENROUTER_MODEL
+from retry import post_with_retry
 
 API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
@@ -60,7 +60,7 @@ def select_best(candidates):
     headers = {'Authorization': f'Bearer {OPENROUTER_API_KEY}'}
 
     try:
-        response = requests.post(API_URL, json=payload, headers=headers, timeout=60)
+        response = post_with_retry(API_URL, json=payload, headers=headers, timeout=60)
         response.raise_for_status()
         content = response.json()['choices'][0]['message']['content'].strip()
     except Exception as e:

@@ -1,4 +1,6 @@
 import json
+import os
+import tempfile
 from pathlib import Path
 
 # Память бота между запусками теперь живёт в двух текстовых файлах, а не в
@@ -35,7 +37,18 @@ def _load_state():
 
 
 def _save_state(state):
-    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
+    # Пишем атомарно: сначала во временный файл в той же директории, потом
+    # rename поверх настоящего. Иначе падение процесса посреди write_text()
+    # обрезало бы state.json до хвоста, а read без атомарности — риск гонки при
+    # параллельных прогонах (cron + ручной запуск).
+    fd, tmp = tempfile.mkstemp(dir=DATA_DIR, prefix='.state.')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(state, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, STATE_FILE)
+    except BaseException:
+        os.unlink(tmp)
+        raise
 
 
 def init_db():
