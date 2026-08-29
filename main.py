@@ -30,7 +30,7 @@ def _publish_entry(category, source_name, entry):
         logger.warning(f"Пропуск (не удалось извлечь текст): {url}")
         return False
 
-    title_ru, summary_ru, image_prompt, tags_ru = process_article(entry.get('title', ''), text)
+    title_ru, summary_ru, image_prompt, _tags_ru = process_article(entry.get('title', ''), text)
     if not summary_ru:
         logger.warning(f"Пропуск (ИИ не ответил): {url}")
         return False
@@ -59,8 +59,12 @@ def _publish_entry(category, source_name, entry):
     # вышедшую и она навсегда терялась (никогда не ретраилась). Цена такого
     # порядка — редкий дубль, если процесс упадёт между отправкой и меткой,
     # но дубль заметно лучше, чем тихая потеря новости.
+    # Модельные теги не публикуем — только тег категории (надёжный, стабильный,
+    # из FEEDS). Сгенерированные free-LLM теги нестабильны (то регистр, то
+    # мусор) и превращаются в визуальный шум без пользы для навигации.
+    # Категория уже попадает в caption через category= в post_news.
     if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes,
-                 category=category, tags=tags_ru):
+                 category=category):
         add_news(category, title_ru, summary_ru, url, image_url, entry.get('published', ''))
         logger.info(f"Опубликовано [{category}] {title_ru}")
         return True
