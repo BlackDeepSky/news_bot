@@ -218,3 +218,4 @@ https://news.mit.edu/2026/looking-beyond-natural-sequences-0827
 https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex
 https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/
 https://spectrum.ieee.org/video-friday-microduck-robot
+https://www.sciencedaily.com/releases/2026/08/260831015205.htm
