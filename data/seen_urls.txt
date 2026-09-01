@@ -220,3 +220,4 @@ https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluatio
 https://spectrum.ieee.org/video-friday-microduck-robot
 https://www.sciencedaily.com/releases/2026/08/260831015205.htm
 https://phys.org/news/2026-09-marmite-lures-discovery-lake-depths.html
+https://habr.com/ru/articles/1077372/?utm_campaign=1077372&utm_source=habrahabr&utm_medium=rss
