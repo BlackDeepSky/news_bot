@@ -226,3 +226,4 @@ https://www.infoq.com/news/2026/09/swiggy-pltv-multitask-mlp/?utm_campaign=infoq
 https://www.wired.com/story/russian-startup-mostik-ai-models-communication/
 https://stackoverflow.blog/2026/09/01/the-good-ol-days-of-building-java/
 https://habr.com/ru/articles/1078038/?utm_campaign=1078038&utm_source=habrahabr&utm_medium=rss
+https://openai.com/index/atv-big-air-tour
