@@ -228,3 +228,4 @@ https://stackoverflow.blog/2026/09/01/the-good-ol-days-of-building-java/
 https://habr.com/ru/articles/1078038/?utm_campaign=1078038&utm_source=habrahabr&utm_medium=rss
 https://openai.com/index/atv-big-air-tour
 https://habr.com/ru/articles/1078284/?utm_campaign=1078284&utm_source=habrahabr&utm_medium=rss
+https://habr.com/ru/articles/1078328/?utm_campaign=1078328&utm_source=habrahabr&utm_medium=rss
