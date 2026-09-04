@@ -229,3 +229,4 @@ https://habr.com/ru/articles/1078038/?utm_campaign=1078038&utm_source=habrahabr&
 https://openai.com/index/atv-big-air-tour
 https://habr.com/ru/articles/1078284/?utm_campaign=1078284&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/articles/1078328/?utm_campaign=1078328&utm_source=habrahabr&utm_medium=rss
+https://dev.to/james_lin/i-like-carbon-aware-pricing-but-i-would-not-let-it-drive-production-yet-1bf
