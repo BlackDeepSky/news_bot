@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 from loguru import logger
 
 from config import (FEEDS, CHANNEL_ID, MAX_ARTICLES_PER_RUN, MAX_ARTICLES_PER_FEED,
-                    CANDIDATES_PER_RUN, DIGEST_HOURS_UTC, DIGEST_TITLE)
+                    CANDIDATES_PER_RUN, CANDIDATE_MIN_SNIPPET,
+                    DIGEST_HOURS_UTC, DIGEST_TITLE)
 from database import init_db, is_known, add_news, get_state, set_state
 from feeds import get_entries, entry_image
 from extractor import get_article
@@ -147,24 +148,40 @@ def run():
 
     # ---- Отбор самой интересной статьи ---------------------------------
     # Собираем по одному неопубликованному кандидату (заголовок + сниппет
-    # из RSS, без извлечения полного текста) с первых CANDIDATES_PER_RUN
-    # источников и одним запросом модели выбираем самого интересного.
+    # из RSS, без извлечения полного текста) с CANDIDATES_PER_RUN источников
+    # и одним запросом модели выбираем самого интересного. В отличие от
+    # прежней версии, обходим весь круг: если источник не дал ни одного
+    # нового кандидата, идём дальше по кругу, пока не наберём нужное число
+    # или не пройдём все источники (visited — защита от бесконечного цикла).
+    # Так пул не зависит от того, какие источники оказались «рядом» с
+    # курсором, что в целом повышает качество выбора.
+    #
     # Публикуем победителя; если его не удалось провести через пайплайн —
     # фолбэк на обычный round-robin внизу.
     candidates = []
-    for step in range(CANDIDATES_PER_RUN):
-        category, source_name, feed_url = all_sources[(start_index + step) % n_sources]
+    visited = 0
+    idx = start_index
+    while len(candidates) < CANDIDATES_PER_RUN and visited < n_sources:
+        category, source_name, feed_url = all_sources[idx]
         for entry in get_entries(feed_url, MAX_ARTICLES_PER_FEED):
             url = entry.get('link', '')
             if url and not is_known(url):
                 candidates.append((url, entry, category, source_name))
                 break
+        idx = (idx + 1) % n_sources
+        visited += 1
 
     if candidates:
-        pick_list = [
-            (url, entry.get('title', ''), entry.get('summary', ''))
-            for url, entry, _, _ in candidates
-        ]
+        pick_list = []
+        for url, entry, _, _ in candidates:
+            # Кандидату отдаём сниппет RSS, а если он пуст или обрывочный —
+            # догружаем description ленты (расширенный текст записи). Полные
+            # тексты не выкачиваем: 5 сетевых загрузок на каждый прогон съели
+            # бы таймаут джобы, а для выбора достаточно сжатой выжимки.
+            snippet = entry.get('summary', '') or ''
+            if len(snippet.strip()) < CANDIDATE_MIN_SNIPPET:
+                snippet = snippet or entry.get('description', '') or ''
+            pick_list.append((url, entry.get('title', ''), snippet))
         best_url = select_best(pick_list)
         if best_url:
             for url, entry, category, source_name in candidates:
@@ -174,8 +191,13 @@ def run():
                     break
             if posted:
                 # Следующий прогон начнёт после последнего просмотренного
-                # источника — обходили CANDIDATES_PER_RUN штук с start_index.
-                set_state('feed_cursor', (start_index + CANDIDATES_PER_RUN) % n_sources)
+                # источника — обходили круг, пока не набрали кандидатов.
+                # Если пришлось пройти весь круг (visited == n_sources, idx
+                # вернулся на start_index) — всё равно сдвигаемся на один
+                # вперёд, как в фолбэке ниже: иначе источник курсора вечно
+                # первый в очереди на выбор.
+                cursor = idx if visited < n_sources else (start_index + 1) % n_sources
+                set_state('feed_cursor', cursor)
                 logger.info(f"Прогон завершён, опубликовано новостей: {posted}")
                 return
 
