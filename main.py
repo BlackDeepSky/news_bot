@@ -1,14 +1,16 @@
 import sys
+from datetime import datetime, timezone
 
 from loguru import logger
 
 from config import (FEEDS, CHANNEL_ID, MAX_ARTICLES_PER_RUN, MAX_ARTICLES_PER_FEED,
-                    CANDIDATES_PER_RUN)
+                    CANDIDATES_PER_RUN, DIGEST_HOURS_UTC, DIGEST_TITLE)
 from database import init_db, is_known, add_news, get_state, set_state
 from feeds import get_entries, entry_image
 from extractor import get_article
 from ai import process_article
 from selector import select_best
+from digest import build_digest
 from pexels import search_photo
 from image_gen import generate_image_url
 from images import fetch_image
@@ -73,9 +75,58 @@ def _publish_entry(category, source_name, entry):
     return False
 
 
+def _is_digest_hour(utc_hour):
+    """True, если текущий час (UTC) — дайджестовый. Вынесено в функцию ради
+    простого теста и чёткого места, где расписание дайджестов живёт."""
+    return utc_hour in DIGEST_HOURS_UTC
+
+
+def _publish_digest():
+    """Публикует один дайджест «Главное в мире за день». Возвращает True,
+    только если дайджест реально ушёл в канал. Обложка — сток по общей теме,
+    без неё пост уходит текстом (не теряем сводку из-за картинки)."""
+    bullets = build_digest()
+    if not bullets:
+        logger.warning("Дайджест не собран — переходим к обычному посту")
+        return False
+
+    summary = '\n'.join('• ' + b for b in bullets)
+
+    # У дайджеста нет одной «статьи», поэтому и картинка не из RSS: ищем сток
+    # по общей теме мира/новостей, запасной вариант — генерация. Цепочка та же,
+    # что в обычном посте, но без entry/og-картинок.
+    cover_prompt = (
+        "world news daily digest cover, globe, newspapers front page with "
+        "headlines, breaking news, photorealistic, no text, no watermark"
+    )
+    image_bytes, _image_url = fetch_image([
+        search_photo(cover_prompt),
+        generate_image_url(cover_prompt),
+    ])
+
+    # url='' — у сводки нет одной ссылки; publisher умеет не рисовать ссылку.
+    if post_news(CHANNEL_ID, DIGEST_TITLE, summary, '', image_bytes, category='Мир'):
+        logger.info(f"Опубликован дайджест [{CHANNEL_ID}]: {len(bullets)} тем")
+        return True
+
+    logger.error("Не удалось отправить дайджест в канал")
+    return False
+
+
 def run():
     init_db()
     posted = 0
+
+    # Дайджестовый прогон — своя ветка: вместо выбора статьи из техно-лент
+    # публикуем сводку мировых новостей и выходим. Курсор round-robin не трогаем
+    # (дайджест не тратит очередь источников). Если сводка не собралась —
+    # не пропускаем прогон впустую, а выходим на обычный пост ниже.
+    if _is_digest_hour(datetime.now(timezone.utc).hour):
+        if _publish_digest():
+            posted = 1
+            logger.info(f"Прогон завершён, опубликовано новостей: {posted}")
+            return
+        logger.info("Дайджест не вышел, публикую обычную новость")
 
     # Плоский список источников вместе с их категорией — обходим его по кругу.
     # Раньше порядок словаря FEEDS + глобальный лимит означали, что первый

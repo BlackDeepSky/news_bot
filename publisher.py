@@ -51,7 +51,12 @@ def _build_caption(title, summary, url, tags, max_length):
     # Хэштеги в конец поста, а не в начало: поиск Telegram смотрит весь текст,
     # а начало занимают заголовок и выжимка, которые видно в превью.
     prefix = f"<b>{html.escape(title)}</b>\n\n"
-    suffix = f'\n\n<a href="{html.escape(url)}">Читать полностью</a>'
+    # Ссылка «Читать полностью» — только если у поста есть одна статья (url).
+    # Дайджест («Главное в мире за день») собирает несколько тем без единой
+    # ссылки — для него url='' и суффикс ограничивается хэштегом категории.
+    suffix = ''
+    if url:
+        suffix = f'\n\n<a href="{html.escape(url)}">Читать полностью</a>'
     if tags:
         suffix += '\n\n' + ' '.join(html.escape(tag) for tag in tags)
 
