@@ -239,3 +239,4 @@ https://dev.to/projedefteri/gemini-38-flash-benchmarks-price-cyber-proje-defteri
 https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/
 https://www.wired.com/gallery/best-alexa-and-amazon-echo-speakers/
 https://habr.com/ru/articles/1078854/?utm_campaign=1078854&utm_source=habrahabr&utm_medium=rss
+https://spectrum.ieee.org/cyborg-rescue-roach
