@@ -238,3 +238,4 @@ https://www.therobotreport.com/enovis-to-acquire-ecential-robotics-for-180m/
 https://dev.to/projedefteri/gemini-38-flash-benchmarks-price-cyber-proje-defteri-41i9
 https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/
 https://www.wired.com/gallery/best-alexa-and-amazon-echo-speakers/
+https://habr.com/ru/articles/1078854/?utm_campaign=1078854&utm_source=habrahabr&utm_medium=rss
