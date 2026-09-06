@@ -65,8 +65,12 @@ def _build_caption(title, summary, url, tags, max_length):
     # `<a href="...` пополам — Telegram отвечал 400 "Unclosed start tag" и пост
     # уходил без фото. html.escape() удлиняет текст (например, `&` -> `&amp;`),
     # поэтому после обрезки проверяем реальную длину и ужимаем ещё раз.
-    summary = summary[:max_length - len(prefix) - len(suffix)]
-    while html.escape(summary) and len(html.escape(summary)) > max_length - len(prefix) - len(suffix):
+    # max() защищает от отрицательного размера выжимки, если весь лимит уже
+    # занят префиксом+суффиксом: слайс summary[:-N] обрезал бы хвост, а не
+    # начало, и пост ушёл бы с битой выжимкой.
+    budget = max(0, max_length - len(prefix) - len(suffix))
+    summary = summary[:budget]
+    while html.escape(summary) and len(html.escape(summary)) > budget:
         summary = summary[:-1]
     return prefix + html.escape(summary) + suffix
 

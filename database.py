@@ -31,9 +31,13 @@ def _load_state():
     if not STATE_FILE.exists():
         return {}
     try:
-        return json.loads(STATE_FILE.read_text(encoding='utf-8'))
+        data = json.loads(STATE_FILE.read_text(encoding='utf-8'))
     except (json.JSONDecodeError, OSError):
         return {}
+    # JSON может быть валидным, но не словарём (список/строка из битой
+    # записи или ручной правки) — дальше по коду идёт .get/.__setitem__,
+    # что на не-dict уронило бы весь прогон.
+    return data if isinstance(data, dict) else {}
 
 
 def _save_state(state):
