@@ -262,3 +262,4 @@ https://www.cnn.com/2023/04/13/success/tax-filing-tips/index.html
 https://www.cnn.com/2023/04/14/economy/march-retail-sales/index.html
 https://dev.to/roxdavirox/email-header-analysis-what-smtp-metadata-reveals-about-infrastructure-and-identity-g7k
 https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-run-several-agents-at-once/
+https://habr.com/ru/companies/selectel/articles/1078306/?utm_campaign=1078306&utm_source=habrahabr&utm_medium=rss
