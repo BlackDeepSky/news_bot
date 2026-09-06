@@ -2,6 +2,7 @@ import requests
 from loguru import logger
 
 from config import MAX_IMAGE_BYTES
+from urlutils import is_safe_url
 
 
 def download_image(url, timeout=90):
@@ -9,6 +10,12 @@ def download_image(url, timeout=90):
     отдал изображение. Пустые байты/text not image — ошибка: так мы отсекаем
     битые ссылки и медленные сервисы раньше, чем их попробует Telegram."""
     if not url:
+        return None
+
+    # Анти-SSRF (лёгкий уровень): не качаем ничего из локальных/private-сетей,
+    # даже если ссылку на них прислала внешняя лента. См. urlutils.is_safe_url.
+    if not is_safe_url(url):
+        logger.warning(f"Небезопасный URL картинки, пропускаю: {url}")
         return None
 
     try:

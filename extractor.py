@@ -3,6 +3,8 @@ import re
 import trafilatura
 from loguru import logger
 
+from urlutils import is_safe_url
+
 # Ограничение на входной текст для ИИ — экономит токены и держит запрос
 # в пределах контекста бесплатной модели.
 MAX_CHARS = 4000
@@ -27,7 +29,13 @@ def get_article(url):
     """Скачивает страницу один раз и возвращает (текст_статьи, og:image).
     RSS редко даёт картинку (проверено вживую на Habr, TechCrunch), а вот
     og:image на самой странице у них почти всегда есть — та же картинка,
-    что видна в превью ссылки в мессенджерах."""
+    что видна в превью ссылки в мессенджерах. URL статьи приходит из внешнего
+    фида — перед загрузкой проверяем, что он не ведёт в локальные/private
+    сети (анти-SSRF, см. urlutils.is_safe_url)."""
+    if not is_safe_url(url):
+        logger.warning(f"Небезопасный URL статьи, пропускаю: {url}")
+        return '', ''
+
     try:
         downloaded = trafilatura.fetch_url(url)
         if not downloaded:

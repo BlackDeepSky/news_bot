@@ -3,6 +3,8 @@ import os
 import tempfile
 from pathlib import Path
 
+from urlutils import normalize_url
+
 # Память бота между запусками теперь живёт в двух текстовых файлах, а не в
 # бинарнике SQLite. Почему так:
 #   * рантайму нужны только два факта — «этот URL уже постили» и «курсор
@@ -17,8 +19,10 @@ DATA_DIR = Path('data')
 URLS_FILE = DATA_DIR / 'seen_urls.txt'
 STATE_FILE = DATA_DIR / 'state.json'
 
-# Набор URL держим в памяти на время прогона, файл читаем один раз в init_db.
-_seen_urls = set()
+# Ключи «уже публиковали» держим в памяти на время прогона, файл читаем один
+# раз в init_db. Ключ — нормализованный URL (см. urlutils.normalize_url): тот
+# же адрес с utm-хвостом/фрагментом — это один ключ, а не две новости.
+_seen_keys = set()
 
 
 def _load_seen_urls():
@@ -58,8 +62,10 @@ def _save_state(state):
 def init_db():
     """Готовит файлы памяти бота: директорию, список URL и файл состояния."""
     DATA_DIR.mkdir(exist_ok=True)
-    global _seen_urls
-    _seen_urls = _load_seen_urls()
+    global _seen_keys
+    # Файл хранит сырые URL (что пришло из фида), а сравниваемся по
+    # нормализованным ключам — старые записи продолжают работать.
+    _seen_keys = {normalize_url(u) for u in _load_seen_urls()}
     if not STATE_FILE.exists():
         _save_state({})
 
@@ -77,17 +83,19 @@ def set_state(key, value):
 
 
 def is_known(url):
-    """Проверка, публиковали ли уже эту статью."""
-    return url in _seen_urls
+    """Проверка, публиковали ли уже эту статью (по нормализованному ключу)."""
+    return normalize_url(url) in _seen_keys
 
 
 def add_news(category, title, summary, url, image_url, published_at):
-    """Отмечает статью как опубликованную. False, если url уже был (не
-    плодим дубликатов). Заголовок и остальные поля не храним: для рантайма
-    нужен только URL, архив постов — сам канал в Telegram."""
-    if url in _seen_urls:
+    """Отмечает статью как опубликованную. False, если нормализованный url
+    уже был (не плодим дубликатов даже при разных utm-хвостах). Заголовок и
+    остальные поля не храним: для рантайма нужен только URL, архив постов —
+    сам канал в Telegram."""
+    key = normalize_url(url)
+    if key in _seen_keys:
         return False
     with URLS_FILE.open('a', encoding='utf-8') as f:
         f.write(url + '\n')
-    _seen_urls.add(url)
+    _seen_keys.add(key)
     return True
