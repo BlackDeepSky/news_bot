@@ -266,3 +266,4 @@ https://habr.com/ru/companies/selectel/articles/1078306/?utm_campaign=1078306&ut
 https://habr.com/ru/articles/1078950/?utm_campaign=1078950&utm_source=habrahabr&utm_medium=rss
 https://dev.to/ankurk91/i-rewrote-my-electron-app-in-tauri-and-claude-did-100-of-the-work-in-under-24-hours-3j5p
 https://www.infoq.com/news/2026/09/figma-security-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://habr.com/ru/articles/1078980/?utm_campaign=1078980&utm_source=habrahabr&utm_medium=rss
