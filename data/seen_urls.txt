@@ -271,3 +271,4 @@ https://deepmind.google/blog/introducing-weathernext-3-our-most-advanced-and-acc
 https://dev.to/arqamwd/the-charity-had-the-proof-it-just-couldnt-show-anyone-hdk
 https://www.infoq.com/news/2026/09/google-mantis-vulnerability-scan/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://www.technologyreview.com/2026/09/04/1140872/architecting-memory-and-storage-in-the-ai-era/
+https://habr.com/ru/articles/1079102/?utm_campaign=1079102&utm_source=habrahabr&utm_medium=rss
