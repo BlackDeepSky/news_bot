@@ -260,3 +260,4 @@ https://www.aljazeera.com/news/2026/9/6/nearly-9000-killed-in-israeli-attacks-on
 https://www.cnn.com/business/live-news/stock-market-bank-earnings/index.html
 https://www.cnn.com/2023/04/13/success/tax-filing-tips/index.html
 https://www.cnn.com/2023/04/14/economy/march-retail-sales/index.html
+https://dev.to/roxdavirox/email-header-analysis-what-smtp-metadata-reveals-about-infrastructure-and-identity-g7k
