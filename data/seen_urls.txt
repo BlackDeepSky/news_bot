@@ -282,3 +282,4 @@ https://arstechnica.com/space/2026/09/german-company-becomes-first-in-europe-to-
 https://www.theverge.com/ai-artificial-intelligence/990932/seattle-times-newsday-lawsuit-openai-microsoft
 https://stackoverflow.blog/2026/09/04/how-to-build-a-secure-by-default-ai-coding-agent/
 https://www.therobotreport.com/eric-sivertson-discusses-fpgas-robot-security/
+https://www.sciencedaily.com/releases/2026/09/260904000330.htm
