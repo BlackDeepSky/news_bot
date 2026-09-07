@@ -281,3 +281,4 @@ https://techcrunch.com/2026/09/06/authors-push-back-as-publishers-and-agents-see
 https://arstechnica.com/space/2026/09/german-company-becomes-first-in-europe-to-launch-fully-commercial-orbital-rocket/
 https://www.theverge.com/ai-artificial-intelligence/990932/seattle-times-newsday-lawsuit-openai-microsoft
 https://stackoverflow.blog/2026/09/04/how-to-build-a-secure-by-default-ai-coding-agent/
+https://www.therobotreport.com/eric-sivertson-discusses-fpgas-robot-security/
