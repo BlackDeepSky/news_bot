@@ -275,3 +275,4 @@ https://habr.com/ru/articles/1079102/?utm_campaign=1079102&utm_source=habrahabr&
 https://deepmind.google/blog/proactive-cyber-defense-for-governments-and-enterprises/
 https://habr.com/ru/articles/1079120/?utm_campaign=1079120&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/articles/1078904/?utm_campaign=1078904&utm_source=habrahabr&utm_medium=rss
+https://dev.to/ayush_singh_9b0d83152be5b/gpt-6-astra-can-find-zero-days-the-more-interesting-problem-is-whether-we-can-still-see-what-its-4kb8
