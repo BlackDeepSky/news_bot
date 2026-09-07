@@ -289,3 +289,4 @@ https://www.wired.com/story/rei-labor-day-sale-2026/
 https://www.technologyreview.com/2026/09/07/1143592/the-download-underground-hydrogen-search-rogue-openai-agents/
 https://victoriametrics.com/blog/postgres-19/index.html
 https://stackoverflow.blog/2026/09/03/security-control-and-accessibility-si-2026-6/
+https://habr.com/ru/articles/1079588/?utm_campaign=1079588&utm_source=habrahabr&utm_medium=rss
