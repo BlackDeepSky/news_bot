@@ -280,3 +280,4 @@ https://www.infoq.com/news/2026/09/vlt-npm-replacement/?utm_campaign=infoq_conte
 https://techcrunch.com/2026/09/06/authors-push-back-as-publishers-and-agents-seek-share-of-anthropic-settlement/
 https://arstechnica.com/space/2026/09/german-company-becomes-first-in-europe-to-launch-fully-commercial-orbital-rocket/
 https://www.theverge.com/ai-artificial-intelligence/990932/seattle-times-newsday-lawsuit-openai-microsoft
+https://stackoverflow.blog/2026/09/04/how-to-build-a-secure-by-default-ai-coding-agent/
