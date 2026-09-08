@@ -310,3 +310,4 @@ https://www.technologyreview.com/2026/09/08/1142079/hannah-earley-computer-chips
 https://habr.com/ru/companies/inferit/articles/1079862/?utm_campaign=1079862&utm_source=habrahabr&utm_medium=rss
 https://news.mit.edu/2026/system-helps-humans-predict-when-self-driving-cars-will-make-mistakes-0902
 https://openai.com/index/the-work-now-within-reach
+https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/
