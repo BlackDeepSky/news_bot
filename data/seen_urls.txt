@@ -335,3 +335,4 @@ https://www.aljazeera.com/video/newsfeed/2026/9/9/cameraman-catches-the-moment-y
 https://dev.to/lynkr/how-i-built-a-free-openai-compatible-api-on-top-of-opencode-67a
 https://habr.com/ru/articles/1080120/?utm_campaign=1080120&utm_source=habrahabr&utm_medium=rss
 https://openai.com/index/codex-quantum-computing-experiments
+https://dev.to/iurii_rogulia/stripes-vat-verification-happens-after-checkout-not-before-3e65
