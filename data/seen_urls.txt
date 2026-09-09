@@ -342,3 +342,4 @@ https://habr.com/ru/companies/selectel/articles/1076786/?utm_campaign=1076786&ut
 https://phys.org/news/2026-09-pounding-sinkhole-swanky-malibu.html
 https://arstechnica.com/tech-policy/2026/09/man-told-chatgpt-he-was-feeling-delusional-chatgpt-insisted-he-was-jesus/
 https://dadrian.io/blog/posts/whack-a-mole-is-losing/
+https://stackoverflow.blog/2026/09/09/java-s-age-is-its-ai-superpower/
