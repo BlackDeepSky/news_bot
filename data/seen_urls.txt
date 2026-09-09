@@ -337,3 +337,4 @@ https://habr.com/ru/articles/1080120/?utm_campaign=1080120&utm_source=habrahabr&
 https://openai.com/index/codex-quantum-computing-experiments
 https://dev.to/iurii_rogulia/stripes-vat-verification-happens-after-checkout-not-before-3e65
 https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans
+https://buttondown.com/blog/lotus-notes-email
