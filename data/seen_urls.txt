@@ -368,3 +368,4 @@ https://dev.to/naufalnazya/membangun-sapa-ai-agent-pendeteksi-pesan-penipuan-unt
 https://www.infoq.com/news/2026/09/autonomous-software-teams/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://techcrunch.com/2026/09/10/anthropic-reveals-rogue-ai-agents-hate-captchas-just-like-you/
 https://openjdk.org/jeps/544
+https://stackoverflow.blog/2026/09/10/re-introducing-developer-story/
