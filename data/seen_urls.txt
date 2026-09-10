@@ -355,3 +355,4 @@ https://news.mit.edu/2026/from-mit-to-ibm-expediting-ai-and-quantum-deployment-0
 https://habr.com/ru/articles/1080492/?utm_campaign=1080492&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/articles/1080538/?utm_campaign=1080538&utm_source=habrahabr&utm_medium=rss
 https://dev.to/admantium/open-webui-chat-interface-context-options-1a9k
+https://www.infoq.com/news/2026/09/http-query-method/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
