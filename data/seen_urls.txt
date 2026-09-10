@@ -361,3 +361,4 @@ https://habr.com/ru/articles/1080716/?utm_campaign=1080716&utm_source=habrahabr&
 https://habr.com/ru/companies/getaclass/articles/1080656/?utm_campaign=1080656&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/skbkontur/articles/1080616/?utm_campaign=1080616&utm_source=habrahabr&utm_medium=rss
 https://arstechnica.com/information-technology/2026/09/4-groups-caught-using-the-same-chrome-and-windows-exploit-kit/
+https://habr.com/ru/articles/1080756/?utm_campaign=1080756&utm_source=habrahabr&utm_medium=rss
