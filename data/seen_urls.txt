@@ -359,3 +359,4 @@ https://www.infoq.com/news/2026/09/http-query-method/?utm_campaign=infoq_content
 https://www.wired.com/story/trump-offers-every-american-5000-if-republicans-win-the-midterms/
 https://habr.com/ru/articles/1080716/?utm_campaign=1080716&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/getaclass/articles/1080656/?utm_campaign=1080656&utm_source=habrahabr&utm_medium=rss
+https://habr.com/ru/companies/skbkontur/articles/1080616/?utm_campaign=1080616&utm_source=habrahabr&utm_medium=rss
