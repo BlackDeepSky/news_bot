@@ -366,3 +366,4 @@ https://habr.com/ru/articles/1080830/?utm_campaign=1080830&utm_source=habrahabr&
 https://habr.com/ru/articles/1080778/?utm_campaign=1080778&utm_source=habrahabr&utm_medium=rss
 https://dev.to/naufalnazya/membangun-sapa-ai-agent-pendeteksi-pesan-penipuan-untuk-umkm-indonesia-562f
 https://www.infoq.com/news/2026/09/autonomous-software-teams/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://techcrunch.com/2026/09/10/anthropic-reveals-rogue-ai-agents-hate-captchas-just-like-you/
