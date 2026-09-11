@@ -385,3 +385,4 @@ https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials
 https://www.sciencedaily.com/releases/2026/09/260909005305.htm
 https://habr.com/ru/companies/otus/articles/1073948/?utm_campaign=1073948&utm_source=habrahabr&utm_medium=rss
 https://dev.to/viktoriaholikova/how-to-build-a-real-time-notification-system-for-a-classified-marketplace-architecture-transport-580f
+https://www.theverge.com/science/993522/water-chip-semiconductor-manufacturing-colorado-river
