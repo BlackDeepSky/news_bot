@@ -117,7 +117,7 @@ GitHub Actions не гарантирует исполнение встроенн
 
 3. Для приватного репозитория нужен [Personal Access Token](https://github.com/settings/tokens?type=beta) с правом **Actions: Read and write** на этот репо (fine-grained PAT) или классический `repo` + `workflow` (classic PAT). Для публичного — достаточно самого репо.
 4. Поле **«Send as POST request»** в cron-job.org должно быть включено, **Request headers** — заполнены как выше (две строки `Authorization` и `Content-Type`).
-5. Расписание в cron-job.org: `0 * * * *` (каждый час). main.py сам определяет по `DIGEST_HOURS_UTC`, какой прогон — дайджестовый, остальные 15 — обычные.
+5. Расписание в cron-job.org: `0 5,10,15,19 * * *` (UTC = 08:00, 13:00, 18:00, 22:00 по Минску). main.py сам определяет по `DIGEST_HOURS_UTC`, какой прогон — дайджестовый, остальные 3 — обычные.
 
 Если хочется просто проверить вручную: **Actions → Post news → Run workflow**.
 
@@ -174,8 +174,8 @@ Round-robin и селектор подхватят автоматически:
 | Telegram Bot API | Без лимитов на отправку в канал | [документация](https://core.telegram.org/bots/api) |
 | GitHub Actions | 2 000 минут/месяц на free-аккаунте | [billing](https://github.com/settings/billing) |
 
-Расчёт на 16 прогонов/сутки × 1 пост = ~31 запрос к OpenRouter (15 селектов +
-15 суммаризаций + 1 сборка дайджеста). Укладывается в квоту с запасом. Если
+Расчёт на 4 прогона/сутки × 1 пост = ~7 запросов к OpenRouter (3 селекта +
+3 суммаризации + 1 сборка дайджеста). Укладывается в квоту с запасом. Если
 упёрлись — снизьте `MAX_ARTICLES_PER_RUN` или уменьшите количество часов в
 расписании cron-job.org.
 

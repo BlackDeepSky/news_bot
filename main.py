@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 
 from loguru import logger
 
@@ -86,8 +87,9 @@ def _is_digest_hour(utc_hour):
 
 def _publish_digest():
     """Публикует один дайджест «Главное в мире за день». Возвращает True,
-    только если дайджест реально ушёл в канал. Обложка — сток по общей теме,
-    без неё пост уходит текстом (не теряем сводку из-за картинки)."""
+    только если дайджест реально ушёл в канал. Обложка — фиксированный файл
+    assets/digest_cover.jpg; если его нет — пост уходит текстом (не теряем
+    сводку из-за картинки)."""
     bullets = build_digest()
     if not bullets:
         logger.warning("Дайджест не собран — переходим к обычному посту")
@@ -95,17 +97,15 @@ def _publish_digest():
 
     summary = '\n'.join('• ' + b for b in bullets)
 
-    # У дайджеста нет одной «статьи», поэтому и картинка не из RSS: ищем сток
-    # по общей теме мира/новостей, запасной вариант — генерация. Цепочка та же,
-    # что в обычном посте, но без entry/og-картинок.
-    cover_prompt = (
-        "world news daily digest cover, globe, newspapers front page with "
-        "headlines, breaking news, photorealistic, no text, no watermark"
-    )
-    image_bytes, _image_url = fetch_image([
-        search_photo(cover_prompt),
-        generate_image_url(cover_prompt),
-    ])
+    # Постоянная обложка вместо стока/генерации: у дайджеста нет одной
+    # «статьи», картинка условная, и тянуть её каждый раз по сети (Pexels,
+    # Pollinations) — лишняя точка отказа, а в 2026-09 порог MIN_IMAGE_LONG_SIDE
+    # стабильно отбраковывал мелкие стоковые превью и ронял прогон (TypeError
+    # при распаковке None). Файл лежит локально после checkout — сеть не нужна.
+    image_bytes = b''
+    cover = Path('assets/digest_cover.jpg')
+    if cover.exists():
+        image_bytes = cover.read_bytes()
 
     # url='' — у сводки нет одной ссылки; publisher умеет не рисовать ссылку.
     if post_news(CHANNEL_ID, DIGEST_TITLE, summary, '', image_bytes, category='Мир'):
