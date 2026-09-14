@@ -416,3 +416,4 @@ https://www.aljazeera.com/video/newsfeed/2026/9/14/13-09-sv-residents-battle-wil
 https://www.aljazeera.com/news/2026/9/14/israeli-minister-threatens-to-revoke-filmmakers-citizenship-over-gaza-film?traffic_source=rss
 https://www.aljazeera.com/news/2026/9/14/turkish-authorities-launch-anti-lgbtq-raids-detaining-dozens?traffic_source=rss
 https://www.aljazeera.com/news/2026/9/14/japanese-pm-backed-candidate-wins-okinawa-gubernatorial-election?traffic_source=rss
+https://dev.to/talha_ramzan_3878156fea8c/the-deployment-failure-that-only-shows-up-on-a-clean-clone-5bo9
