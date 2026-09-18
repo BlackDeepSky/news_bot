@@ -457,3 +457,4 @@ https://www.theguardian.com/world/2026/sep/16/us-visa-restrictions-south-african
 https://www.aljazeera.com/video/newsfeed/2026/9/18/aje-onl-nf_could-this-economic-squeeze-sway-us-voters-180926?traffic_source=rss
 https://www.aljazeera.com/news/2026/9/18/new-tiger-cat-species-identified-in-bolivia-first-in-over-a-century?traffic_source=rss
 https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/
+https://www.wired.com/story/metas-copyright-system-is-being-weaponized-against-albanian-protesters/
