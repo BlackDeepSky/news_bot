@@ -493,3 +493,4 @@ https://phys.org/news/2026-09-qa-tiny-spores-big-critical.html
 https://techcrunch.com/2026/09/21/kairos-power-gets-up-to-100m-from-samsung-group-to-build-nuclear-reactor-for-google/
 https://arstechnica.com/security/2026/09/muse-metas-extraordinarily-privileged-ai-assistant-has-a-serious-0-day/
 https://stackoverflow.blog/2026/09/22/haters-think-ai-can-t-gpu-code-this-ll-rocm/
+https://habr.com/ru/companies/sberbank/articles/1083934/?utm_campaign=1083934&utm_source=habrahabr&utm_medium=rss
