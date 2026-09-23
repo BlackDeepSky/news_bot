@@ -116,4 +116,16 @@ FEEDS = {
         ('Hacker News', 'https://hnrss.org/frontpage'),
         ('Stack Overflow Blog', 'https://stackoverflow.blog/feed/'),
     ],
+    # Профильные ленты по ИБ: утечки, уязвимости, атаки, расследования.
+    # Ленты проверены вживую (feedparser отдаёт записи без ключа). Dark Reading
+    # и общая лента SecurityLab отдают либо пустой, либо смешанный (не ИБ)
+    # контент — поэтому не берём. Habr даёт русскоязычный материал, остальные —
+    # англоязычный, его переводит ai.py, как и в других категориях.
+    'Кибербезопасность': [
+        ('Habr: Информационная безопасность', 'https://habr.com/ru/rss/hubs/infosecurity/articles/all/?fl=ru'),
+        ('The Hacker News', 'https://feeds.feedburner.com/TheHackersNews'),
+        ('BleepingComputer', 'https://www.bleepingcomputer.com/feed/'),
+        ('Krebs on Security', 'https://krebsonsecurity.com/feed/'),
+        ('The Record', 'https://therecord.media/feed'),
+    ],
 }
