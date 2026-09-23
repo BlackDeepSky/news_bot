@@ -496,3 +496,4 @@ https://stackoverflow.blog/2026/09/22/haters-think-ai-can-t-gpu-code-this-ll-roc
 https://habr.com/ru/companies/sberbank/articles/1083934/?utm_campaign=1083934&utm_source=habrahabr&utm_medium=rss
 https://deepmind.google/blog/introducing-gemini-3-8-live-and-3-8-live-extended-thinking/
 https://phys.org/news/2026-09-baby-denmark-uk.html
+https://dev.to/anakin_writers/price-matching-is-a-bad-default-model-the-pricing-decision-instead-11on
