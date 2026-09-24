@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime, timezone
+from itertools import zip_longest
 from pathlib import Path
 
 from loguru import logger
@@ -136,11 +137,22 @@ def run():
     # Плоский список источников вместе с их категорией — обходим его по кругу.
     # Раньше порядок словаря FEEDS + глобальный лимит означали, что первый
     # же источник (Habr) съедал всю квоту прогона, а остальные не трогались.
-    all_sources = [
-        (category, source_name, feed_url)
-        for category, sources in FEEDS.items()
-        for source_name, feed_url in sources
-    ]
+    #
+    # Источники чередуем «по кругу категорий»: сначала первые из каждой
+    # категории, затем вторые и т.д. Если собирать блоками (как раньше), окно
+    # из CANDIDATES_PER_RUN подряд идущих источников могло целиком лечь в одну
+    # категорию — и несколько прогонов подряд выдавали одну тему (вживую: два
+    # ИБ-поста подряд, когда курсор встал на шов блоков «ИТ» и
+    # «Кибербезопасность»). После чередования в любом окне из пяти источников
+    # одна категория встречается не больше двух раз. Полностью без повторов не
+    # выходит: у «ИТ» семь источников — больше, чем у остальных, и его хвост
+    # даёт пару подряд в конце круга.
+    all_sources = []
+    for row in zip_longest(*FEEDS.values()):
+        for category, source in zip(FEEDS, row):
+            if source is not None:
+                source_name, feed_url = source
+                all_sources.append((category, source_name, feed_url))
     n_sources = len(all_sources)
     if n_sources == 0:
         logger.warning("FEEDS пуст, нечего публиковать")
