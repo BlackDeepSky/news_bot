@@ -86,7 +86,7 @@ def _image_dimensions(data):
 
 def fetch_image(candidates, timeout=90):
     """Пробует кандидатов по очереди, возвращает (байты, выбранный_url)
-    первой успешно скачанной картинки. None, если ни один кандидат не прошёл —
+    первой успешно скачанной картинки. (None, None), если ни один кандидат не прошёл —
     вызывающий код пропустит статью, чтобы в канал не уходили посты без фото.
     Картинку мельче MIN_IMAGE_LONG_SIDE пропускаем: Telegram всё равно сожмёт
     фото до ~1280px, а маленький исходник превратится в размытый апскейл."""
@@ -100,4 +100,4 @@ def fetch_image(candidates, timeout=90):
             logger.warning(f"Картинка слишком мала ({width}x{height}), пропускаю: {url}")
             continue
         return image_bytes, url
-    return None
+    return None, None
