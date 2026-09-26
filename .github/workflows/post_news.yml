@@ -58,3 +58,24 @@ jobs:
           git add data/
           git diff --cached --quiet || git commit -m "Update bot data"
           git push
+
+      # cron-job.org видит только ответ dispatch-API (204) и не знает, чем
+      # закончился сам прогон, поэтому об упавших джобах сообщаем отдельно.
+      # Нужен секрет ALERT_CHAT_ID — id личного чата с ботом (не канала!);
+      # без него шаг тихо пропускается. continue-on-error, чтобы ошибка
+      # уведомления не замаскировала исходную причину падения.
+      - name: Notify on failure
+        if: failure()
+        continue-on-error: true
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          ALERT_CHAT_ID: ${{ secrets.ALERT_CHAT_ID }}
+        run: |
+          if [ -z "$ALERT_CHAT_ID" ]; then
+            echo "ALERT_CHAT_ID не задан — уведомление пропущено"
+            exit 0
+          fi
+          TEXT="🔴 Прогон news_bot упал: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -sS -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${ALERT_CHAT_ID}" \
+            --data-urlencode "text=${TEXT}"

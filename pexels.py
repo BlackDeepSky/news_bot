@@ -22,7 +22,11 @@ def search_photo(query):
         photos = response.json().get('photos', [])
         if not photos:
             return ''
-        return photos[0]['src']['large']
+        # large (940px) стабильно не проходил MIN_IMAGE_LONG_SIDE=1080 и просто
+        # сжигал кандидата; large2x — 1880x1253, порог проходит. Остальные
+        # ключи оставлены страховкой на случай изменения схемы API.
+        src = photos[0].get('src', {})
+        return src.get('large2x') or src.get('original') or src.get('large') or ''
     except Exception as e:
         logger.error(f"Ошибка запроса к Pexels: {e}")
         return ''

@@ -5,12 +5,18 @@ CHANNEL_ID = config('CHANNEL_ID')
 OPENROUTER_API_KEY = config('OPENROUTER_API_KEY')
 PEXELS_API_KEY = config('PEXELS_API_KEY')
 
-# Бесплатная модель на OpenRouter. Список бесплатных моделей меняется —
-# актуальный смотреть на https://openrouter.ai/models?max_price=0
-# gemma-4-31b-it временно недоступна (общий бесплатный пул Google AI Studio
-# был перегружен на момент проверки, отдавал 429 всем без исключения) —
-# nemotron прошла живую проверку.
-OPENROUTER_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free'
+# Бесплатные модели на OpenRouter, по порядку: основная, затем запасная.
+# Список бесплатных моделей меняется — актуальный смотреть на
+# https://openrouter.ai/models?max_price=0
+# 26.09.2026 OpenRouter дважды ответил HTTP 200 без поля choices (в теле —
+# error провайдера), из-за этого не собрался дайджест. llm.chat_completion
+# такой ответ логирует и переходит к следующей модели в списке.
+# gemma-4-31b-it не взята: на проверке 26.09.2026 её пул Google AI Studio
+# отдавал 429 всем без исключения.
+OPENROUTER_MODELS = (
+    'nvidia/nemotron-3-super-120b-a12b:free',   # основная, проверена вживую
+    'nvidia/nemotron-3.5-lightning:free',       # запасная, проверена вживую
+)
 
 # Лимит на прогон: 4 прогона/сутки (см. cron-job.org: 05,10,15,19 UTC) x 1 пост =
 # до 4 постов/сутки: 3 обычных + 1 дайджест «Мир» (DIGEST_HOURS_UTC), равномерно
@@ -81,6 +87,14 @@ MAX_IMAGE_BYTES = 10 * 1024 * 1024
 # укладывается в лимит размера, но в канал он всё равно не годится.
 # См. images.fetch_image.
 MIN_IMAGE_LONG_SIDE = 1080
+
+# «Последний шанс» картинки: если ни один кандидат не дотянул до
+# MIN_IMAGE_LONG_SIDE, берём лучшую скачанную картинку не меньше этой длины —
+# лучше пост чуть мягче, чем пропущенная новость. Анонимный Pollinations
+# больше 1024x576 не отдаёт, Pexels large — 940px, поэтому при отказе
+# og:image/RSS без этого порога новость терялась бы целиком (а до 26.09.2026 —
+# ещё и роняла прогон TypeError при распаковке None).
+LAST_RESORT_LONG_SIDE = 800
 
 # category -> [(человекочитаемое имя источника, URL RSS-ленты), ...]
 FEEDS = {

@@ -1,3 +1,4 @@
+import html
 import re
 
 import trafilatura
@@ -17,12 +18,17 @@ OG_IMAGE_TAG_RE = re.compile(
 CONTENT_ATTR_RE = re.compile(r'content=["\']([^"\']+)["\']', re.IGNORECASE)
 
 
-def _extract_og_image(html):
-    tag_match = OG_IMAGE_TAG_RE.search(html)
+def _extract_og_image(html_text):
+    tag_match = OG_IMAGE_TAG_RE.search(html_text)
     if not tag_match:
         return ''
     content_match = CONTENT_ATTR_RE.search(tag_match.group(0))
-    return content_match.group(1) if content_match else ''
+    if not content_match:
+        return ''
+    # В HTML амперсанды экранированы: href с "&amp;h=900" уходил в requests
+    # как есть, и CDN отвечал 400 (поймано вживую на images.ctfassets.net
+    # 26.09.2026). unescape возвращает URL к рабочему виду.
+    return html.unescape(content_match.group(1))
 
 
 def get_article(url):

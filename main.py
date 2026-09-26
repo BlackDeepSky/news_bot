@@ -56,10 +56,11 @@ def _publish_entry(category, source_name, entry):
         search_photo(image_prompt),
         generate_image_url(image_prompt),
     ]
-    image_bytes, image_url = fetch_image(candidates)
-    if not image_bytes:
+    result = fetch_image(candidates)
+    if not result:
         logger.warning(f"Пропуск (не удалось получить картинку): {url}")
         return False
+    image_bytes, image_url = result
 
     # Добавляем URL в «уже опубликованные» только ПОСЛЕ подтверждённой
     # отправки: иначе упавшая/отклонённая публикация помечала статью как
@@ -128,7 +129,14 @@ def run():
     # (дайджест не тратит очередь источников). Если сводка не собралась —
     # не пропускаем прогон впустую, а выходим на обычный пост ниже.
     if _is_digest_hour(datetime.now(timezone.utc).hour):
-        if _publish_digest():
+        # Неожиданная ошибка дайджеста не должна убивать прогон: ниже есть
+        # фолбэк на обычный пост, и он должен сработать.
+        try:
+            digest_ok = _publish_digest()
+        except Exception:
+            logger.exception("Неожиданная ошибка при публикации дайджеста")
+            digest_ok = False
+        if digest_ok:
             posted = 1
             logger.info(f"Прогон завершён, опубликовано новостей: {posted}")
             return
@@ -202,8 +210,15 @@ def run():
         if best_url:
             for url, entry, category, source_name in candidates:
                 if url == best_url:
-                    if _publish_entry(category, source_name, entry):
-                        posted = 1
+                    # Ошибка одной статьи (в том числе неожиданная) не должна
+                    # убивать весь прогон: логируем и продолжаем ниже, как в
+                    # фолбэке. 26.09.2026 такое исключение уронило два прогона
+                    # подряд, и дайджест с постом не вышли.
+                    try:
+                        if _publish_entry(category, source_name, entry):
+                            posted = 1
+                    except Exception:
+                        logger.exception(f"Неожиданная ошибка при публикации: {url}")
                     break
             if posted:
                 # Следующий прогон начнёт после последнего просмотренного
@@ -229,8 +244,12 @@ def run():
             if posted >= MAX_ARTICLES_PER_RUN:
                 break
 
-            if _publish_entry(category, source_name, entry):
-                posted += 1
+            try:
+                if _publish_entry(category, source_name, entry):
+                    posted += 1
+            except Exception:
+                logger.exception(
+                    f"Неожиданная ошибка при публикации: {entry.get('link', '')}")
 
         idx = (idx + 1) % n_sources
         visited += 1

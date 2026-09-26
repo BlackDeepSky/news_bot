@@ -2,10 +2,7 @@ import random
 import re
 from loguru import logger
 
-from config import OPENROUTER_API_KEY, OPENROUTER_MODEL
-from retry import post_with_retry
-
-API_URL = 'https://openrouter.ai/api/v1/chat/completions'
+from llm import chat_completion
 
 # Просим вернуть только номер выбранного кандидата. free-модель (nemotron/MoE)
 # склонна рассуждать вслух и портить формат — те же грабли, что и в ai.py.
@@ -47,27 +44,17 @@ def select_best(candidates):
     shuffled = list(candidates)
     random.shuffle(shuffled)
 
-    payload = {
-        'model': OPENROUTER_MODEL,
-        'messages': [
+    content = chat_completion(
+        [
             {'role': 'system', 'content': SELECTOR_SYSTEM_PROMPT},
             {'role': 'user', 'content': SELECTOR_PROMPT.format(
                 list=_build_candidate_list(shuffled))},
         ],
-        'temperature': 0.3,
-        'max_tokens': 100,
-        # Reasoning-модели тратят max_tokens на рассуждения вслух и успевают
-        # выдать пустоту — это уже поймано в ai.py, глушим здесь то же самое.
-        'reasoning': {'enabled': False},
-    }
-    headers = {'Authorization': f'Bearer {OPENROUTER_API_KEY}'}
-
-    try:
-        response = post_with_retry(API_URL, json=payload, headers=headers, timeout=60)
-        response.raise_for_status()
-        content = response.json()['choices'][0]['message']['content'].strip()
-    except Exception as e:
-        logger.error(f"Ошибка запроса к OpenRouter при выборе статьи: {e}")
+        temperature=0.3,
+        max_tokens=100,
+        task='выбор статьи',
+    )
+    if not content:
         return ''
 
     match = re.search(r'\d+', content)

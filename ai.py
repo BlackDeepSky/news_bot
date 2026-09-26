@@ -1,10 +1,7 @@
 import re
 from loguru import logger
 
-from config import OPENROUTER_API_KEY, OPENROUTER_MODEL
-from retry import post_with_retry
-
-API_URL = 'https://openrouter.ai/api/v1/chat/completions'
+from llm import chat_completion
 
 # Один запрос делает и перевод, и суммаризацию сразу — при дневном лимите
 # бесплатных запросов на OpenRouter два отдельных вызова на статью съели бы
@@ -90,27 +87,22 @@ def process_article(title, text):
             + "\nЗаголовок статьи: " + title
             + "\n\nТекст статьи:\n" + text
         )
-        payload = {
-            'model': OPENROUTER_MODEL,
-            'messages': [
+        content = chat_completion(
+            [
                 {'role': 'system', 'content': SYSTEM_PROMPT},
                 {'role': 'user', 'content': user_content},
             ],
-            'temperature': 0.3,
-            'max_tokens': 500,
-            # Часть бесплатных моделей — reasoning-модели: без этого флага они
-            # тратят весь max_tokens на рассуждения вслух и обрезаются раньше,
-            # чем успевают выдать сам ответ (поймали вживую: content содержал
-            # заглушку из промпта и оборванное рассуждение вместо результата).
-            'reasoning': {'enabled': False},
-        }
-        headers = {'Authorization': f'Bearer {OPENROUTER_API_KEY}'}
-
-        response = post_with_retry(API_URL, json=payload, headers=headers, timeout=60)
-        response.raise_for_status()
-        content = response.json()['choices'][0]['message']['content'].strip()
+            temperature=0.3,
+            max_tokens=500,
+            task='суммаризация статьи',
+        )
     except Exception as e:
-        logger.error(f"Ошибка запроса к OpenRouter: {e}")
+        logger.error(f"Ошибка подготовки запроса к OpenRouter: {e}")
+        return '', '', '', ''
+
+    # Пустой ответ означает, что ни одна модель не ответила (причину
+    # chat_completion уже залогировал) — статью пропускаем.
+    if not content:
         return '', '', '', ''
 
     match = RESPONSE_RE.search(content)

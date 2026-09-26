@@ -3,7 +3,7 @@ import struct
 import requests
 from loguru import logger
 
-from config import MAX_IMAGE_BYTES, MIN_IMAGE_LONG_SIDE
+from config import MAX_IMAGE_BYTES, MIN_IMAGE_LONG_SIDE, LAST_RESORT_LONG_SIDE
 from urlutils import is_safe_url
 
 
@@ -86,18 +86,40 @@ def _image_dimensions(data):
 
 def fetch_image(candidates, timeout=90):
     """Пробует кандидатов по очереди, возвращает (байты, выбранный_url)
-    первой успешно скачанной картинки. None, если ни один кандидат не прошёл —
-    вызывающий код пропустит статью, чтобы в канал не уходили посты без фото.
-    Картинку мельче MIN_IMAGE_LONG_SIDE пропускаем: Telegram всё равно сожмёт
-    фото до ~1280px, а маленький исходник превратится в размытый апскейл."""
+    первой успешно скачанной картинки. Картинку мельче MIN_IMAGE_LONG_SIDE
+    пропускаем: Telegram всё равно сожмёт фото до ~1280px, а маленький
+    исходник превратится в размытый апскейл.
+
+    Но если выше порога не прошёл никто, отдаём лучшую из скачанных картинок
+    не меньше LAST_RESORT_LONG_SIDE («последний шанс»): пропущенная новость
+    дороже, чем картинка чуть мягче. None остаётся только на случай, когда не
+    скачалось вообще ничего пригодного, — вызывающий код обязан его проверить
+    (26.09.2026 распаковка None как кортежа уронила два прогона подряд)."""
+    best_fallback = None  # (длина большей стороны, байты, url)
     for url in candidates:
         result = download_image(url, timeout=timeout)
         if not result:
             continue
         image_bytes, _content_type = result
         width, height = _image_dimensions(image_bytes) or (0, 0)
-        if 0 < max(width, height) < MIN_IMAGE_LONG_SIDE:
-            logger.warning(f"Картинка слишком мала ({width}x{height}), пропускаю: {url}")
+        long_side = max(width, height)
+
+        # long_side == 0 — формат не распознан (WebP и т.п.): не мешаем.
+        if long_side == 0 or long_side >= MIN_IMAGE_LONG_SIDE:
+            return image_bytes, url
+
+        if long_side >= LAST_RESORT_LONG_SIDE:
+            logger.warning(f"Картинка меньше порога ({width}x{height}), держу как запасную: {url}")
+            if best_fallback is None or long_side > best_fallback[0]:
+                best_fallback = (long_side, image_bytes, url)
             continue
+
+        logger.warning(f"Картинка слишком мала ({width}x{height}), пропускаю: {url}")
+
+    if best_fallback:
+        long_side, image_bytes, url = best_fallback
+        logger.warning(
+            f"Ни одна картинка не прошла порог {MIN_IMAGE_LONG_SIDE}px, "
+            f"беру запасную ({long_side}px): {url}")
         return image_bytes, url
     return None
