@@ -527,3 +527,4 @@ https://www.aljazeera.com/news/2026/9/27/german-russian-foreign-ministers-hold-r
 https://www.aljazeera.com/video/newsfeed/2026/9/27/bangkok-declared-disaster-zone-after-heavy-rains-submerge-roads?traffic_source=rss
 https://www.aljazeera.com/video/newsfeed/2026/9/27/thousands-protest-in-madrid-against-spains-housing-crisis?traffic_source=rss
 https://dev.to/alexgeorgiev17/containerd-22s-mount-manager-panics-on-a-one-mount-mkfs-chain-545n
+https://thehackernews.com/2026/09/warning-two-unpatched-citrix-netscaler.html
