@@ -528,3 +528,4 @@ https://www.aljazeera.com/video/newsfeed/2026/9/27/bangkok-declared-disaster-zon
 https://www.aljazeera.com/video/newsfeed/2026/9/27/thousands-protest-in-madrid-against-spains-housing-crisis?traffic_source=rss
 https://dev.to/alexgeorgiev17/containerd-22s-mount-manager-panics-on-a-one-mount-mkfs-chain-545n
 https://thehackernews.com/2026/09/warning-two-unpatched-citrix-netscaler.html
+https://www.bleepingcomputer.com/news/security/citrix-admins-warned-to-shut-down-netscalers-over-2-exploited-zero-days/
