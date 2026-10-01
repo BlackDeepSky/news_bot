@@ -565,3 +565,13 @@ https://www.aljazeera.com/news/2026/9/30/somali-pirates-killed-five-crew-members
 https://habr.com/ru/articles/1088460/?utm_campaign=1088460&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/otus/articles/1087290/?utm_campaign=1087290&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/09/attackers-exploit-zimbra-flaw-to-deploy.html
+https://www.bbc.co.uk/news/articles/cq8r6rjdvlx6o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cqgmrm7xd8wyo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cqjdv7pmj9dno?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cqx2ze420kpyo?at_medium=RSS&at_campaign=rss
+https://www.theguardian.com/us-news/2026/sep/30/trump-state-department-human-rights-fund
+https://www.theguardian.com/world/2026/sep/30/south-africa-gender-based-violence-women-killings
+https://www.theguardian.com/us-news/2026/sep/30/burundi-third-country-deportations-trump-immigration
+https://www.aljazeera.com/news/2026/10/1/afghanistan-says-nine-killed-in-pakistani-air-raids-on-kunar-helmand?traffic_source=rss
+https://www.aljazeera.com/economy/2026/10/1/south-koreas-exports-hit-record-high-on-ai-boom?traffic_source=rss
+https://www.aljazeera.com/news/2026/10/1/afcon-2027-east-africa-races-to-get-tournament-ready?traffic_source=rss
