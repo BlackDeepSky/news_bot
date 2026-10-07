@@ -637,3 +637,4 @@ https://www.aljazeera.com/video/newsfeed/2026/10/7/what-israeli-schools-teach?tr
 https://www.aljazeera.com/economy/2026/10/7/us-stock-market-hits-all-time-high-as-investors-bet-big-on-ai?traffic_source=rss
 https://www.infoq.com/articles/apache-kafka-golang-session-ordered-pipeline/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://github.blog/engineering/architecture-optimization/building-git-infrastructure-for-agent-scale-development/
+https://krebsonsecurity.com/2026/10/shinyhunters-extorted-boeing-spin-off-prior-to-arrests/
