@@ -648,3 +648,4 @@ https://www.aljazeera.com/video/newsfeed/2026/10/8/global-protests-mark-october-
 https://www.aljazeera.com/news/2026/10/8/us-bars-fiji-based-man-over-corruption-tied-to-china?traffic_source=rss
 https://habr.com/ru/articles/1091788/?utm_campaign=1091788&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/smartengines/articles/1092088/?utm_campaign=1092088&utm_source=habrahabr&utm_medium=rss
+https://dev.to/talaizikov/a-postgres-table-as-our-push-queue-retries-dead-letters-and-fcm-in-nextjs-bbc
