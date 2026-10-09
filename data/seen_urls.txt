@@ -649,3 +649,13 @@ https://www.aljazeera.com/news/2026/10/8/us-bars-fiji-based-man-over-corruption-
 https://habr.com/ru/articles/1091788/?utm_campaign=1091788&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/smartengines/articles/1092088/?utm_campaign=1092088&utm_source=habrahabr&utm_medium=rss
 https://dev.to/talaizikov/a-postgres-table-as-our-push-queue-retries-dead-letters-and-fcm-in-nextjs-bbc
+https://www.bbc.co.uk/news/articles/ckgel9044vqeo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cmy0r96xygx6o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/c875pwq134l3o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/c60rln74yzvxo?at_medium=RSS&at_campaign=rss
+https://www.theguardian.com/global-development/2026/oct/09/egypt-six-journalists-matsadaash-protest-over-detentions
+https://www.theguardian.com/environment/2026/oct/08/researchers-find-180000-giant-tortoises-living-on-island-in-seychelles
+https://www.theguardian.com/world/2026/oct/08/ethiopia-drone-attack-against-eritrean-troops-in-tigray
+https://www.aljazeera.com/news/2026/10/9/mexico-prison-clash-in-strife-torn-sinaloa-state-leaves-10-dead?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/10/9/uproar-in-ny-after-ice-shoots-man-with-child-in-the-car?traffic_source=rss
+https://www.aljazeera.com/news/2026/10/9/northern-irelands-sinn-fein-faces-police-probe-as-protest-tensions-fester?traffic_source=rss
