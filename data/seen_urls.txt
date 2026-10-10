@@ -674,3 +674,4 @@ https://www.aljazeera.com/video/newsfeed/2026/10/10/10-10-ukraine-drone-russia-o
 https://www.aljazeera.com/news/2026/10/10/india-deploys-police-and-restricts-transport-ahead-of-mass-protest-in-delhi?traffic_source=rss
 https://habr.com/ru/articles/1092662/?utm_campaign=1092662&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/10/the-third-party-agent-problem-why.html
+https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
