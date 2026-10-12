@@ -696,3 +696,4 @@ https://www.aljazeera.com/news/2026/10/12/north-korea-fires-multiple-ballistic-m
 https://www.aljazeera.com/video/newsfeed/2026/10/12/at-least-139-dead-as-migrant-boat-from-djibouti-to-yemen-capsizes?traffic_source=rss
 https://dev.to/protemir/modheader-in-selenium-stopped-working-heres-what-sets-http-headers-in-tests-in-2026-1jgg
 https://www.infoq.com/news/2026/10/spotify-ai-quality-controls/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://www.bleepingcomputer.com/news/security/anthropic-takes-risky-ai-tests-offline-after-models-breach-govt-sites/
