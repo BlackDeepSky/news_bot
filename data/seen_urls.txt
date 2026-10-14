@@ -716,3 +716,4 @@ https://www.aljazeera.com/news/2026/10/14/china-and-north-korea-to-open-new-yalu
 https://www.aljazeera.com/economy/2026/10/14/singapores-economy-grows-more-than-5-percent-amid-ai-boom?traffic_source=rss
 https://www.aljazeera.com/video/newsfeed/2026/10/14/openai-employee-listening-device-spying-saudi-fozan?traffic_source=rss
 https://www.aljazeera.com/news/2026/10/14/un-official-says-window-of-opportunity-for-peace-in-dr-congo?traffic_source=rss
+https://thehackernews.com/2026/10/ai-found-linux-kernel-flaw-gives-local.html
