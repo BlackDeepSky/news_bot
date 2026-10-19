@@ -777,3 +777,4 @@ https://www.aljazeera.com/economy/2026/10/19/anthropic-says-it-will-commit-5-of-
 https://www.aljazeera.com/news/2026/10/19/trump-defends-russian-sanctions-relief-lashes-out-at-zelenskyy?traffic_source=rss
 https://habr.com/ru/companies/infostart/articles/1096158/?utm_campaign=1096158&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/10/weekly-recap-98-zero-days-rogue-ai.html
+https://www.bleepingcomputer.com/news/security/bullhorn-takes-staffing-platform-offline-to-contain-cyberattack/
