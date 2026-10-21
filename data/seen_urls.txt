@@ -803,3 +803,4 @@ https://www.aljazeera.com/news/2026/10/21/faecal-waste-pollutes-drinking-water-i
 https://www.aljazeera.com/news/2026/10/21/portugal-cost-of-living-protesters-pour-back-into-camps-cleared-by-police?traffic_source=rss
 https://habr.com/ru/companies/abp2b/articles/1097158/?utm_campaign=1097158&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/10/google-chrome-adds-clickfix-warnings-to.html
+https://www.bleepingcomputer.com/news/security/cisa-hackers-chain-plex-flaws-in-plex2shell-attacks-to-breach-servers/
