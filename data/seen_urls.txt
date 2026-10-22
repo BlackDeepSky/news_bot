@@ -815,3 +815,4 @@ https://www.aljazeera.com/news/2026/10/22/trump-administration-seeks-supreme-cou
 https://www.aljazeera.com/video/newsfeed/2026/10/22/can-trump-deport-congresswoman-ilhan-omar?traffic_source=rss
 https://www.aljazeera.com/video/newsfeed/2026/10/22/russia-frees-american-stephen-hubbard-after-4-years-behind-bars?traffic_source=rss
 https://krebsonsecurity.com/2026/10/widespread-php-flaw-may-cause-many-site-outages-today/
+https://habr.com/ru/articles/1098004/?utm_campaign=1098004&utm_source=habrahabr&utm_medium=rss
