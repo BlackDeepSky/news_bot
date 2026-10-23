@@ -827,3 +827,4 @@ https://www.aljazeera.com/features/2026/10/23/keeping-madhubala-alive-the-fight-
 https://www.aljazeera.com/news/2026/10/23/israel-arrests-36-palestinians-in-the-west-bank-attacks-on-farmers-ramp-up?traffic_source=rss
 https://www.aljazeera.com/economy/2026/10/23/us-tech-stocks-tumble-as-investors-fret-over-ai-spending?traffic_source=rss
 https://thehackernews.com/2026/10/researchers-demonstrate-node2shell-rce.html
+https://github.blog/security/how-bug-bounty-sharpens-one-researchers-security-skills/
