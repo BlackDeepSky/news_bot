@@ -840,3 +840,4 @@ https://www.aljazeera.com/video/newsfeed/2026/10/24/10-24-rubi0-cuba-cia?traffic
 https://www.aljazeera.com/news/2026/10/24/israel-raids-towns-detains-dozens-of-palestinians-in-occupied-west-bank?traffic_source=rss
 https://habr.com/ru/articles/1098866/?utm_campaign=1098866&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/otus/articles/1097872/?utm_campaign=1097872&utm_source=habrahabr&utm_medium=rss
+https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html
