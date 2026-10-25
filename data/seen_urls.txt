@@ -841,3 +841,10 @@ https://www.aljazeera.com/news/2026/10/24/israel-raids-towns-detains-dozens-of-p
 https://habr.com/ru/articles/1098866/?utm_campaign=1098866&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/otus/articles/1097872/?utm_campaign=1097872&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html
+https://www.bbc.co.uk/news/articles/c95ynd587ynzo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cwkg5md14j8go?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cqd09k1k7532o?at_medium=RSS&at_campaign=rss
+https://www.aljazeera.com/news/2026/10/25/serbia-votes-in-election-pitting-longtime-leader-against-student-movement?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/10/25/obama-joins-el-sayed-in-michigan-rally-cry-before-key-midterms?traffic_source=rss
+https://www.aljazeera.com/news/2026/10/25/new-york-archdiocese-agrees-to-pay-800m-to-1300-sexual-abuse-survivors?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/10/25/10-25-turkiye-media-crackdown-sv?traffic_source=rss
