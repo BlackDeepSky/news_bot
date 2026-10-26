@@ -861,3 +861,4 @@ https://www.aljazeera.com/news/2026/10/26/attackers-kill-nurse-injure-health-wor
 https://www.aljazeera.com/economy/2026/10/26/us-military-says-it-helped-gulf-states-export-1-5-billion-barrels-of-oil?traffic_source=rss
 https://habr.com/ru/companies/beeline_tech/articles/1099316/?utm_campaign=1099316&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/10/weekly-recap-this2shell-that2shell.html
+https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure/
