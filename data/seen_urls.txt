@@ -885,3 +885,4 @@ https://www.aljazeera.com/video/newsfeed/2026/10/28/bolsonaro-ally-denies-knowle
 https://www.aljazeera.com/news/2026/10/28/global-stock-markets-rise-as-investors-continue-to-bet-on-ai?traffic_source=rss
 https://thehackernews.com/2026/10/anthropics-unreleased-ai-model-chains.html
 https://www.bleepingcomputer.com/news/microsoft/microsoft-reminds-entra-id-admins-to-migrate-users-to-passkeys/
+https://habr.com/ru/articles/1100732/?utm_campaign=1100732&utm_source=habrahabr&utm_medium=rss
