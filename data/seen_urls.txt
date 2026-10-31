@@ -922,3 +922,4 @@ https://www.aljazeera.com/news/2026/10/31/us-execution-survivor-christa-pike-say
 https://www.aljazeera.com/video/newsfeed/2026/10/31/russias-novaya-gazeta-killed-off-after-murders-arrests-and-pressure?traffic_source=rss
 https://thehackernews.com/2026/10/attackers-chain-three-ivanti-connect.html
 https://phys.org/news/2026-10-rare-iron-age-celtic-helmet.html
+https://www.bleepingcomputer.com/news/security/northflank-security-breach-leads-to-abuse-of-customers-ai-api-keys/
