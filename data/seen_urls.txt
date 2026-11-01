@@ -931,3 +931,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/1/france-protests-teargas-polic
 https://www.aljazeera.com/news/2026/11/1/bolivia-declares-state-of-emergency-over-el-nino-weather-pattern?traffic_source=rss
 https://www.aljazeera.com/news/2026/11/1/ukrainian-evacuees-from-russian-occupied-oleshky-reunite-with-family?traffic_source=rss
 https://www.aljazeera.com/video/newsfeed/2026/11/1/iran-wrap-iran-latest-developments-011126?traffic_source=rss
+https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/
