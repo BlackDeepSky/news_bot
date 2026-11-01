@@ -933,3 +933,4 @@ https://www.aljazeera.com/news/2026/11/1/ukrainian-evacuees-from-russian-occupie
 https://www.aljazeera.com/video/newsfeed/2026/11/1/iran-wrap-iran-latest-developments-011126?traffic_source=rss
 https://www.wired.com/story/kernel-panic-volta-autodoxer-ai-infostealer-malware/
 https://habr.com/ru/articles/1102280/?utm_campaign=1102280&utm_source=habrahabr&utm_medium=rss
+https://www.therobotreport.com/28-zero-day-findings-in-less-than-two-days-what-ai-speed-discovery-means-for-robotics/
