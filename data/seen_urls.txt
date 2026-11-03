@@ -955,3 +955,4 @@ https://www.aljazeera.com/news/2026/11/3/us-midterms-present-a-test-for-republic
 https://www.aljazeera.com/news/2026/11/3/israeli-forces-arrest-al-jazeera-journalist-in-raid-on-his-west-bank-home?traffic_source=rss
 https://habr.com/ru/articles/1103082/?utm_campaign=1103082&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/spring_aio/articles/1103204/?utm_campaign=1103204&utm_source=habrahabr&utm_medium=rss
+https://arstechnica.com/google/2026/11/google-dismantles-botnet-secretly-running-on-1-3-million-android-tv-boxes/
