@@ -967,3 +967,4 @@ https://www.aljazeera.com/news/2026/11/4/kansas-elects-democrat-adam-hamilton?tr
 https://www.aljazeera.com/news/2026/11/4/democratic-party-flips-us-senate-in-2026-midterm-elections?traffic_source=rss
 https://www.infoq.com/articles/mobile-app-infrastructure-at-scale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
 https://krebsonsecurity.com/2026/11/tech-firms-dismantle-botnet-that-turned-1-3m-tv-boxes-into-proxies/
+https://spectrum.ieee.org/drone-delivery-noise
