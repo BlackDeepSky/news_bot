@@ -7,7 +7,7 @@ from loguru import logger
 
 from config import (FEEDS, CHANNEL_ID, MAX_ARTICLES_PER_RUN, MAX_ARTICLES_PER_FEED,
                     CANDIDATES_PER_RUN, CANDIDATE_MIN_SNIPPET,
-                    DIGEST_HOURS_UTC, DIGEST_TITLE)
+                    DIGEST_HOURS_UTC, DIGEST_TITLE, POLL_ENABLED)
 from database import init_db, is_known, add_news, get_state, set_state
 from feeds import get_entries, entry_image
 from extractor import get_article
@@ -17,10 +17,40 @@ from digest import build_digest
 from pexels import search_photo
 from image_gen import generate_image_url
 from images import fetch_image
-from publisher import post_news
+from publisher import post_news, post_poll
 
 logger.remove()
 logger.add(sys.stderr, format="<green>{time}</green> <level>{level}</level> {message}", colorize=True)
+
+
+def _entry_age_hours(entry):
+    """Возраст записи в часах (float) или None, если лента дату не отдала.
+
+    feedparser кладёт время в published_parsed как struct_time в UTC;
+    updated_parsed — запасной вариант (часть лент вообще не публикует
+    published). Будущая дата (кривые часы у источника) не должна выглядеть
+    как «свежайшая новость»: отрицательный возраст обрезаем нулём."""
+    parsed = entry.get('published_parsed') or entry.get('updated_parsed')
+    if not parsed:
+        return None
+    try:
+        published = datetime(*parsed[:6], tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return None
+    return max(0.0, (datetime.now(timezone.utc) - published).total_seconds() / 3600)
+
+
+def _publish_poll(chat_id, article, message_id):
+    """Опрос в ответ на пост. Ничего не возвращает: пост уже опубликован, и
+    опрос — необязательная часть, поэтому сюда доходят только логи."""
+    if not POLL_ENABLED or not message_id:
+        return
+    if not article.get('poll_question') or len(article.get('poll_options') or []) < 2:
+        logger.info("Модель не дала вопрос/варианты — пост без опроса")
+        return
+    if post_poll(chat_id, article['poll_question'], article['poll_options'],
+                 reply_to_message_id=message_id):
+        logger.info(f"Опрос опубликован: {article['poll_question']}")
 
 
 def _publish_entry(category, source_name, entry):
@@ -35,10 +65,12 @@ def _publish_entry(category, source_name, entry):
         logger.warning(f"Пропуск (не удалось извлечь текст): {url}")
         return False
 
-    title_ru, summary_ru, image_prompt, _tags_ru = process_article(entry.get('title', ''), text)
-    if not summary_ru:
+    article = process_article(entry.get('title', ''), text)
+    if not article:
         logger.warning(f"Пропуск (ИИ не ответил): {url}")
         return False
+    title_ru, summary_ru = article['title'], article['summary']
+    image_prompt = article['image_prompt']
 
     # Цепочка источников картинки, от самого достоверного к самому
     # крайнему: og:image со страницы статьи (это та же картинка, что видит
@@ -71,10 +103,13 @@ def _publish_entry(category, source_name, entry):
     # из FEEDS). Сгенерированные free-LLM теги нестабильны (то регистр, то
     # мусор) и превращаются в визуальный шум без пользы для навигации.
     # Категория уже попадает в caption через category= в post_news.
-    if post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes,
-                 category=category):
+    message_id = post_news(CHANNEL_ID, title_ru, summary_ru, url, image_bytes,
+                           category=category, why=article.get('why', ''))
+    if message_id:
         add_news(category, title_ru, summary_ru, url, image_url, entry.get('published', ''))
         logger.info(f"Опубликовано [{category}] {title_ru}")
+        # Опрос прицепляем ответом на пост; его падение публикацию не отменяет.
+        _publish_poll(CHANNEL_ID, article, message_id)
         return True
 
     logger.error(f"Не удалось отправить в канал: {url}")
@@ -205,7 +240,10 @@ def run():
             snippet = entry.get('summary', '') or ''
             if len(snippet.strip()) < CANDIDATE_MIN_SNIPPET:
                 snippet = snippet or entry.get('description', '') or ''
-            pick_list.append((url, entry.get('title', ''), snippet))
+            # Возраст нужен модели, чтобы не выбрать «свежую» подборку
+            # пятнадцатилетней давности из архивной ленты.
+            pick_list.append((url, entry.get('title', ''), snippet,
+                              _entry_age_hours(entry)))
         best_url = select_best(pick_list)
         if best_url:
             for url, entry, category, source_name in candidates:
