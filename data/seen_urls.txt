@@ -980,3 +980,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/5/hong-kong-activist-joshua-won
 https://habr.com/ru/companies/piter/articles/1103126/?utm_campaign=1103126&utm_source=habrahabr&utm_medium=rss
 https://dev.to/chefbc2k_v1/voice-ownership-needs-to-survive-the-vendor-roadmap-31be
 https://www.bleepingcomputer.com/news/security/openssh-flaw-lets-attackers-log-into-password-disabled-linux-accounts/
+https://github.blog/engineering/architecture-optimization/inside-githubs-new-git-storage-architecture/
