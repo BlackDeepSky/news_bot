@@ -1004,3 +1004,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/8/aje-onl-nf_egypt-sacks-winnin
 https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes?traffic_source=rss
 https://www.wired.com/story/kernel-panic-refrigeration-hacks-internet-of-things/
 https://habr.com/ru/articles/1104780/?utm_campaign=1104780&utm_source=habrahabr&utm_medium=rss
+https://dev.to/technoblogger14o3/claude-codes-dont-ask-again-exposes-passwords-in-1122-public-github-files-5amj
