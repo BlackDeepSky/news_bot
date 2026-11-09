@@ -1005,3 +1005,13 @@ https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans
 https://www.wired.com/story/kernel-panic-refrigeration-hacks-internet-of-things/
 https://habr.com/ru/articles/1104780/?utm_campaign=1104780&utm_source=habrahabr&utm_medium=rss
 https://dev.to/technoblogger14o3/claude-codes-dont-ask-again-exposes-passwords-in-1122-public-github-files-5amj
+https://www.bbc.co.uk/news/articles/c5x2vw4e1gx1o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cwvgr20mmmevo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cm70pdwz122ro?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/ck1wvrrgln13o?at_medium=RSS&at_campaign=rss
+https://www.theguardian.com/world/2026/nov/08/egypt-two-trains-deadly-collision
+https://www.theguardian.com/news/2026/nov/08/african-philosophies-see-my-world-film-festival-manchester
+https://www.aljazeera.com/video/newsfeed/2026/11/9/new-delhi-blanketed-in-toxic-smog-after-diwali-fireworks?traffic_source=rss
+https://www.aljazeera.com/economy/2026/11/9/asian-stock-markets-climb-after-earlier-tech-rout?traffic_source=rss
+https://www.aljazeera.com/news/2026/11/9/rubio-says-war-on-iran-unpopular-but-necessary-to-stop-nuclear-threat?traffic_source=rss
+https://www.aljazeera.com/news/2026/11/9/mexico-arrests-major-leader-of-jalisco-cartel?traffic_source=rss
