@@ -1051,3 +1051,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/12/irans-chief-negotiator-tells
 https://www.aljazeera.com/news/2026/11/12/amnesty-says-un-south-sudan-officials-failed-to-prevent-village-massacre?traffic_source=rss
 https://stackoverflow.blog/2026/11/10/customer-support-is-the-gnarliest-ai-problem/
 https://thehackernews.com/2026/11/google-cloud-warns-three-amd-turin-cpu.html
+https://www.bleepingcomputer.com/news/security/new-windows-signdrop-zero-day-gives-hackers-system-privileges/
