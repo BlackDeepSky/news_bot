@@ -1063,3 +1063,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/13/talarico-appeals-to-trumps-l
 https://www.aljazeera.com/news/2026/11/13/who-is-us-senator-chris-van-hollen?traffic_source=rss
 https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities/
 https://techcrunch.com/2026/11/13/uber-confirms-hackers-stole-thousands-of-drivers-license-information-in-data-breach/
+https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html
