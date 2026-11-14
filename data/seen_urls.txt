@@ -1074,3 +1074,4 @@ https://www.aljazeera.com/news/2026/11/14/icc-stops-probe-into-alleged-crimes-by
 https://www.aljazeera.com/news/2026/11/14/faa-ground-stop-lifted-why-were-us-flights-grounded-and-whats-next?traffic_source=rss
 https://github.blog/news-insights/company-news/github-availability-report-october-2026/
 https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm/
+https://habr.com/ru/articles/1107908/?utm_campaign=1107908&utm_source=habrahabr&utm_medium=rss
