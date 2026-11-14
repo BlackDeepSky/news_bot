@@ -1073,3 +1073,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/14/aje-onl-nf_un-israeli-polici
 https://www.aljazeera.com/news/2026/11/14/icc-stops-probe-into-alleged-crimes-by-us-troops-in-afghanistan?traffic_source=rss
 https://www.aljazeera.com/news/2026/11/14/faa-ground-stop-lifted-why-were-us-flights-grounded-and-whats-next?traffic_source=rss
 https://github.blog/news-insights/company-news/github-availability-report-october-2026/
+https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm/
