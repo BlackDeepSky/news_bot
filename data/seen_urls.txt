@@ -1085,3 +1085,4 @@ https://www.aljazeera.com/news/2026/11/15/zimbabwes-hiv-gains-face-a-test-among-
 https://www.aljazeera.com/video/newsfeed/2026/11/15/monkey-attacks-woman-inside-residential-complex-in-india?traffic_source=rss
 https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html
 https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
+https://stackoverflow.blog/2026/11/13/your-coding-agent-shouldn-t-grade-its-own-homework/
