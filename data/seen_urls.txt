@@ -1109,3 +1109,4 @@ https://www.aljazeera.com/news/2026/11/17/tankers-hit-in-strait-of-hormuz-as-dro
 https://www.aljazeera.com/economy/2026/11/17/us-moves-to-block-chinas-remote-access-to-ai-chips-amid-nvidia-scandal?traffic_source=rss
 https://support.apple.com/en-us/149699
 https://habr.com/ru/articles/1108970/?utm_campaign=1108970&utm_source=habrahabr&utm_medium=rss
+https://thehackernews.com/2026/11/hackers-found-way-around-github-sha.html
