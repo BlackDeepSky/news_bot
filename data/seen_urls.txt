@@ -1143,3 +1143,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/20/canadas-beloved-tim-hortons-
 https://www.aljazeera.com/news/2026/11/20/thousands-protest-colombias-tax-plans-amid-row-over-us-military-role?traffic_source=rss
 https://www.aljazeera.com/news/2026/11/20/lula-visits-ailing-chief-raoni-as-brazil-recognises-indigenous-land?traffic_source=rss
 https://www.aljazeera.com/economy/2026/11/20/asias-stock-markets-dive-as-anthropic-debut-fails-to-allay-ai-bubble-fears?traffic_source=rss
+https://deepmind.google/blog/introducing-gemini-4-neon/
