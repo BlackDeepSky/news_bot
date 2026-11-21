@@ -1157,3 +1157,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/21/gen-z-protests-sweep-europe-
 https://www.aljazeera.com/news/2026/11/21/trump-calls-for-nvidia-to-reinstate-brilliant-jensen-huang?traffic_source=rss
 https://habr.com/ru/articles/1110610/?utm_campaign=1110610&utm_source=habrahabr&utm_medium=rss
 https://phys.org/news/2026-11-ancient-rift-reawakening-africa-oldest.html
+https://www.infoq.com/news/2026/11/grafana-13-3-shared-variables/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
