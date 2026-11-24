@@ -1181,3 +1181,12 @@ https://www.aljazeera.com/news/2026/11/23/indonesian-police-remove-24-body-bags-
 https://habr.com/ru/companies/otus/articles/1101902/?utm_campaign=1101902&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/11/critical-binary-parser-flaw-enables.html
 https://openai.com/index/perplexity-and-intelligence
+https://www.bbc.co.uk/news/articles/cq5y1k8ez407o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cv98xpg5dg5zo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/c9x2er1ry2mzo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cm894p88jzxpo?at_medium=RSS&at_campaign=rss
+https://www.theguardian.com/world/2026/nov/23/ukraine-naval-drones-strike-russian-warship-libya
+https://www.aljazeera.com/video/newsfeed/2026/11/24/danish-court-backs-ghetto-law-used-to-evict-non-western-residents?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/11/24/car-bomb-strikes-governors-office-in-meta-colombia?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/11/24/indias-best-known-bottled-water-under-scrutiny?traffic_source=rss
+https://www.aljazeera.com/news/2026/11/24/who-chief-visits-cuba-as-healthcare-system-deteriorates?traffic_source=rss
