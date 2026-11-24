@@ -1192,3 +1192,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/24/indias-best-known-bottled-wa
 https://www.aljazeera.com/news/2026/11/24/who-chief-visits-cuba-as-healthcare-system-deteriorates?traffic_source=rss
 https://habr.com/ru/articles/1109830/?utm_campaign=1109830&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/codescoring/articles/1111870/?utm_campaign=1111870&utm_source=habrahabr&utm_medium=rss
+https://thehackernews.com/2026/11/iran-aligned-volant-manticore-uses-ipfs.html
