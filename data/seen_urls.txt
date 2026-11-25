@@ -1193,3 +1193,12 @@ https://www.aljazeera.com/news/2026/11/24/who-chief-visits-cuba-as-healthcare-sy
 https://habr.com/ru/articles/1109830/?utm_campaign=1109830&utm_source=habrahabr&utm_medium=rss
 https://habr.com/ru/companies/codescoring/articles/1111870/?utm_campaign=1111870&utm_source=habrahabr&utm_medium=rss
 https://thehackernews.com/2026/11/iran-aligned-volant-manticore-uses-ipfs.html
+https://www.bbc.co.uk/news/articles/crpdw1qx7jgxo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/c6808pyy5dl9o?at_medium=RSS&at_campaign=rss
+https://www.bbc.co.uk/news/articles/cm5y1ezx2gqyo?at_medium=RSS&at_campaign=rss
+https://www.theguardian.com/world/2026/nov/24/russian-fighters-killed-in-mali-africa-leaked-data
+https://www.aljazeera.com/video/newsfeed/2026/11/25/protesters-clash-with-police-over-venezuelas-poor-minimum-wage?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/11/25/israeli-strike-kills-four-people-in-gaza?traffic_source=rss
+https://www.aljazeera.com/video/newsfeed/2026/11/25/galatasaray-says-israel-complained-to-uefa-over-palestine-banners?traffic_source=rss
+https://www.aljazeera.com/news/2026/11/25/asias-stock-markets-dive-as-doubts-to-swirl-over-ai-boom?traffic_source=rss
