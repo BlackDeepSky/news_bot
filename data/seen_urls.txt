@@ -1204,3 +1204,4 @@ https://www.aljazeera.com/video/newsfeed/2026/11/25/galatasaray-says-israel-comp
 https://www.aljazeera.com/news/2026/11/25/asias-stock-markets-dive-as-doubts-to-swirl-over-ai-boom?traffic_source=rss
 https://therecord.media/mycolorado-app-down-data-breach
 https://techcrunch.com/2026/11/25/todoist-confirms-6-of-customers-details-were-stolen-in-data-breach/
+https://thehackernews.com/2026/11/hackers-exploit-two-geoserver-flaws-as.html
