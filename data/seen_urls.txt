@@ -1217,3 +1217,4 @@ https://www.aljazeera.com/news/2026/11/26/brazil-blasts-unacceptable-new-us-tari
 https://www.aljazeera.com/video/newsfeed/2026/11/26/racecourse-office-blown-away-in-brazil?traffic_source=rss
 https://phys.org/news/2026-11-miniature-cas12m-proteins-dna.html
 https://www.infoq.com/news/2026/11/SRE-based-training/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities
